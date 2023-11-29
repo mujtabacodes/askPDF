@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 
-import { chineseBlack } from './colors'
+import { chineseBlack, backgroundColor } from './colors'
 
 export default css`
 	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
@@ -14,6 +14,7 @@ export default css`
 
 	body {
 		display: flex;
+		background: ${backgroundColor};
 		max-width: 100%;
 		flex-grow: 1;
 		margin: 0;
@@ -33,6 +34,7 @@ export default css`
 
 	* {
 		box-sizing: border-box;
-		color: ${chineseBlack};
+		/* color: ${chineseBlack}; */
+		color: white;
 	}
 `

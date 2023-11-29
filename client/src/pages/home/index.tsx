@@ -1,8 +1,7 @@
-import { T14 } from '@styles/typo'
-import React from 'react'
+import Nav from '@components/Nav'
 
 const Home = () => {
-	return <T14>index</T14>
+	return <Nav />
 }
 
 export default Home

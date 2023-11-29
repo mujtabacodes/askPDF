@@ -13,7 +13,7 @@ export const Container = withPos(styled.button<IButton>`
 
 	padding: 20px 30px;
 
-	border-radius: 8px;
+	border-radius: 10rem;
 	border: none;
 
 	background-color: ${p => (p.white ? 'white' : vividCerulean)};

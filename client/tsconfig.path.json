@@ -1,0 +1,27 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@mainSlice/hooks": ["src/redux/hooks/main"],
+			"@mainSlice": ["src/redux/slices/main"],
+			"@mainSlice/*": ["src/redux/slices/main/*"],
+			"@func": ["src/common/func"],
+			"@styles": ["src/styles"],
+			"@styles/*": ["src/styles/*"],
+			"@types": ["src/common/types"],
+			"@assets": ["src/assets"],
+			"@assets/*": ["src/assets/*"],
+			"@common/*": ["src/common/*"],
+			"@components/*": ["src/components/*"],
+			"@hooks": ["src/hooks"],
+			"@hooks/*": ["src/hooks/*"],
+			"@pages/*": ["src/pages/*"],
+			"@redux": ["src/redux"],
+			"@redux/*": ["src/redux/*"],
+			"@routes": ["src/routes"],
+			"@routes/*": ["src/routes/*"],
+			"@utils/*": ["src/utils/*"],
+			"@/*": ["src/*"]
+		}
+	}
+}

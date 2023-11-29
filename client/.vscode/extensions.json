@@ -1,0 +1,14 @@
+{
+	"recommendations": [
+		"viablelab.bracket-padder",
+		"mikestead.dotenv",
+		"usernamehw.errorlens",
+		"dsznajder.es7-react-js-snippets",
+		"toba.vsfire",
+		"christian-kohler.npm-intellisense",
+		"christian-kohler.path-intellisense",
+		"esbenp.prettier-vscode",
+		"mike-co.import-sorter",
+		"styled-components.vscode-styled-components"
+	]
+}

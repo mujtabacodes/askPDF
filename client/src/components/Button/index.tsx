@@ -1,9 +1,9 @@
 import { forwardRef } from 'react'
 
-import { T14BoldSpaced } from '@styles/typo'
 import { IPos } from '@styles/util'
 
 import { Container } from './styled'
+import { T14BoldSpaced } from '@styles/typo'
 
 export interface IButton extends IPos {
 	children: React.ReactNode

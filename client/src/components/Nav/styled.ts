@@ -1,7 +1,7 @@
 import Button from '@components/Button'
 import styled from '@emotion/styled'
 import { primaryColor } from '@styles/colors'
-import { withPos } from '@styles/util'
+import { T16Bold } from '@styles/typo'
 
 interface INav {}
 
@@ -21,6 +21,11 @@ export const Content = styled.div`
 	width: 80%;
 
 	padding: 2rem;
+	margin-top: 2rem;
+
+	@media screen and (max-width: 768px) {
+		display: none;
+	}
 `
 
 export const Logo = styled.img``
@@ -33,10 +38,11 @@ export const SignInbtn = styled(Button)`
 	color: white;
 `
 
-export const Tab = styled.li`
+export const Tab = styled(T16Bold)`
 	list-style: none;
+	padding-bottom: 0.5rem;
 	cursor: pointer;
-	position: relative; /* Required for absolute positioning of the border */
+	position: relative;
 	transition: background-color 0.3s ease-in-out;
 
 	&:hover {
@@ -56,4 +62,55 @@ export const Tab = styled.li`
 	&:hover:after {
 		width: 100%;
 	}
+`
+
+export const MobileMenuIcon = styled.div``
+
+export const MobileMenu = styled.div`
+	display: none;
+	/* background-color: red; */
+	width: 100%;
+	@media screen and (max-width: 768px) {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 2rem;
+	}
+`
+
+export const ContentMobileView = styled.div`
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	/* justify-content: flex-end; */
+	align-items: flex-end;
+
+	margin-top: 8rem;
+	width: 50%;
+	height: 10rem;
+`
+interface ISideNav {
+	isOpen: boolean
+}
+export const SideNav = styled.div<ISideNav>`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: flex-end;
+
+	background-color: rgba(255, 255, 255, 0.1);
+
+	width: 100%;
+	height: 100%;
+
+	padding-right: 2rem;
+	border-radius: 1rem;
+
+	opacity: ${({ isOpen }) => (isOpen ? 1 : 0)}; /* Initially hide when not open */
+	transition: opacity 1s ease-in-out; /* Apply transition effect */
+
+	pointer-events: ${({ isOpen }) =>
+		isOpen ? 'auto' : 'none'}; /* Enable/disable pointer events */
+	z-index: ${({ isOpen }) => (isOpen ? 1 : -1)};
 `

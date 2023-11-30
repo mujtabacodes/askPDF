@@ -1,7 +1,7 @@
 export const chineseBlack = '#171717'
 export const lightSlateGray = '#79869F'
 export const columbiaBlue = '#C6E0EF'
-export const vividCerulean = '#00A5FF'
+export const vividCerulean = '#00A4E6'
 export const antiflashWhite = '#E9F3F9'
 export const culturedWhite = '#F8F8F8'
 export const blueCola = '#0689DF'

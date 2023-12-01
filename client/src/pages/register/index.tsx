@@ -3,7 +3,7 @@ import { Container, Content, Image, LeftSide, RightSide, Title } from './styled'
 import Button from '@components/Button'
 import SiginIMG from '@assets/images/signin.png'
 
-const Sigin = () => {
+const Register = () => {
 	return (
 		<Container>
 			<Content>
@@ -23,4 +23,4 @@ const Sigin = () => {
 	)
 }
 
-export default Sigin
+export default Register

@@ -1,11 +1,13 @@
 import { TextField } from '@mui/material'
 import React from 'react'
 import { CustomTextField } from './style'
+import { primaryColor } from '@styles/colors'
 
 interface ITextfield {
 	type: 'Text' | 'Email' | 'Password'
 	label: string
 	required?: boolean
+	focused?: boolean
 }
 const Textfield = (p: ITextfield) => {
 	const { type, label, required } = p
@@ -17,6 +19,7 @@ const Textfield = (p: ITextfield) => {
 			variant='outlined'
 			type={type}
 			required={required}
+			fullWidth
 		/>
 	)
 }

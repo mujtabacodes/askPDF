@@ -29,4 +29,8 @@ export const Container = withPos(styled.button<IButton>`
 	}
 
 	${p => (p.white ? `p{color: ${lightSlateGray}}` : 'white')}
+
+	:hover {
+		background: red !important;
+	}
 `)

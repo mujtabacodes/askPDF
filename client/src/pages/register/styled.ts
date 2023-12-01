@@ -1,6 +1,7 @@
+import Button from '@components/Button'
 import styled from '@emotion/styled'
 import { primaryColor } from '@styles/colors'
-import { T18Bold } from '@styles/typo'
+import { T18Bold, T48Bold } from '@styles/typo'
 
 export const Container = styled.div`
 	width: 100%;
@@ -9,59 +10,31 @@ export const Container = styled.div`
 `
 
 export const Content = styled.div`
+	position: fixed;
+
 	display: flex;
-	flex-direction: row;
-
-	justify-content: space-between;
-	background-color: ${primaryColor};
-
-	height: 100%;
-
-	box-shadow: inset;
-
-	border: 3px solid ${primaryColor};
-	border-radius: 2rem;
-
-	@media screen and (max-width: 768px) {
-		flex-direction: column;
-	}
-`
-
-export const LeftSide = styled.div`
-	display: flex;
+	flex-direction: column;
+	background: white;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
-	@media screen and (max-width: 768px) {
-		width: 100%;
-		height: 50%;
-		flex-direction: column;
-	}
-`
+	width: 80%;
+	/* height: 100%; */
 
-export const RightSide = styled(LeftSide)`
+	border: 3px solid ${primaryColor};
+	border-radius: 1rem;
+
+	padding: 2rem;
+`
+export const Title = styled(T48Bold)`
+	font-size: 2rem;
+	color: black;
+`
+export const CustomButton = styled(Button)`
+	width: 100%;
+`
+export const Form = styled.form`
+	display: flex;
 	flex-direction: column;
-	background-color: white;
-	border-top-right-radius: 2rem;
-	border-bottom-right-radius: 2rem;
-
-	@media screen and (max-width: 768px) {
-		border-top-right-radius: 0rem;
-		border-bottom-right-radius: 2rem;
-		border-bottom-left-radius: 2rem;
-	}
-`
-
-export const Title = styled(T18Bold)`
-	color: ${primaryColor};
-	font-weight: 800;
-`
-
-export const Image = styled.img`
+	gap: 2rem;
 	width: 100%;
-	height: auto;
-
-	@media screen and (max-width: 768px) {
-		width: 80%;
-	}
 `

@@ -9,7 +9,10 @@
   "scripts": {
    
     "dev:client": "cd client && yarn dev",
-    "start:both": "concurrently \"npm run start:client\" \"npm run start:server\""
+		"build:client": "cd client && yarn build",
+		"lint:client": "cd client && yarn lint",
+		"preview:client": "cd client && yarn preview",
+    "start:both": "concurrently \"yarn start:client\" \"npm run start:server\""
    
   },
   "dependencies": {

@@ -1,7 +1,8 @@
 import React from 'react'
+import { Container } from './styled'
 
 const UploadFile = () => {
-	return <div>UploadFile</div>
+	return <Container>UploadFile</Container>
 }
 
 export default UploadFile

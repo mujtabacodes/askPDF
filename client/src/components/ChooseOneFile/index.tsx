@@ -1,7 +1,8 @@
 import React from 'react'
+import { Container } from './styled'
 
 const ChooseOneFile = () => {
-	return <div>ChooseOneFile</div>
+	return <Container>ChooseOneFile</Container>
 }
 
 export default ChooseOneFile

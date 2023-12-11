@@ -35,6 +35,6 @@ export default css`
 	* {
 		box-sizing: border-box;
 		color: ${chineseBlack};
-		/* color: white; */
+		color: white;
 	}
 `

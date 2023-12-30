@@ -8,3 +8,8 @@ declare interface IUserData{
   email:string;
   password:string;
 }
+
+declare interface ILoginData{
+  email:string;
+  password:string;
+}

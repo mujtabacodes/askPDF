@@ -5,15 +5,13 @@
   "repository": "https://github.com/Mujtaba4li/askPDF.git",
   "author": "Mujtaba Shafique <mujtaba.shafique@outlook.com>",
   "license": "MIT",
-
   "scripts": {
-   
     "dev:client": "cd client && yarn dev",
-		"build:client": "cd client && yarn build",
-		"lint:client": "cd client && yarn lint",
-		"preview:client": "cd client && yarn preview",
+    "dev:server": "cd server && yarn dev",
+    "build:client": "cd client && yarn build",
+    "lint:client": "cd client && yarn lint",
+    "preview:client": "cd client && yarn preview",
     "start:both": "concurrently \"yarn start:client\" \"npm run start:server\""
-   
   },
   "dependencies": {
     "concurrently": "^7.0.0"

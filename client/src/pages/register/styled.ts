@@ -35,6 +35,6 @@ export const CustomButton = styled(Button)`
 export const Form = styled.form`
 	display: flex;
 	flex-direction: column;
-	gap: 2rem;
+	gap: 1rem;
 	width: 100%;
 `

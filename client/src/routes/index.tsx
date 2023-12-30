@@ -6,6 +6,7 @@ import Home from '@pages/home'
 import Sigin from '@pages/signin'
 import Register from '@pages/register'
 import Dashboard from '@pages/dashboard'
+import PrivateRoutes from './PrivateRoutes'
 
 export default function Routing() {
 	return (
@@ -14,7 +15,9 @@ export default function Routing() {
 				<Route path='/demo' element={<Home2 />} />
 				<Route path='/signin' element={<Sigin />} />
 				<Route path='/register' element={<Register />} />
-				<Route path='/dashboard' element={<Dashboard />} />
+				<Route element={<PrivateRoutes />}>
+					<Route path='/dashboard' element={<Dashboard />} />
+				</Route>
 				<Route path='/' element={<Home />} />
 				<Route path='*' element={<Navigate to='/' replace />} />
 			</Routes>

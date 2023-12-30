@@ -65,3 +65,10 @@ export const Image = styled.img`
 		width: 80%;
 	}
 `
+export const Form = styled.form`
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100%;
+	padding: 2rem;
+`

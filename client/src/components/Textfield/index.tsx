@@ -1,17 +1,25 @@
 import { TextField } from '@mui/material'
-import React from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { CustomTextField } from './style'
 import { primaryColor } from '@styles/colors'
 
 interface ITextfield {
 	type: 'Text' | 'Email' | 'Password'
+	value?: string
+	setValue?: (value: string) => void
 	label: string
 	required?: boolean
 	focused?: boolean
+	onChange?: void
 }
 const Textfield = (p: ITextfield) => {
-	const { type, label, required } = p
-
+	const { type, label, required, value, setValue } = p
+	const [internalValue, setInternalValue] = useState('')
+	const text = value || internalValue
+	const setText = setValue || setInternalValue
+	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setText(e.target.value)
+	}
 	return (
 		<CustomTextField
 			id='outlined-basic'
@@ -20,6 +28,7 @@ const Textfield = (p: ITextfield) => {
 			type={type}
 			required={required}
 			fullWidth
+			onChange={onChange}
 		/>
 	)
 }

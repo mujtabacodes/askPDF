@@ -43,7 +43,7 @@ export const checkUser: RequestHandler = async (req, res, next) => {
 		if (!isMatch) {
 			return next(createHttpError(401, 'Incorrect password'))
 		}
-		res.status(200).json(`User ${user.name} logged in successfully`)
+		res.status(200).json({ user_id: user._id, name: user.name, email: user.email })
 	} catch (error) {
 		return next(createHttpError({ error }))
 	}

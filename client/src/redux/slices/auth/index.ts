@@ -8,8 +8,11 @@ const AuthSlice = createSlice({
 		setIsAuthenticated: (state, action) => {
 			state.isAuthenticated = action.payload
 		},
+		setUserData: (state, action) => {
+			state.userData = action.payload
+		},
 	},
 })
 
-export const { setIsAuthenticated } = AuthSlice.actions
+export const { setIsAuthenticated, setUserData } = AuthSlice.actions
 export default AuthSlice.reducer

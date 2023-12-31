@@ -29,6 +29,9 @@ import ChooseOneFile from '@components/ChooseOneFile'
 import UploadFile from '@components/UploadFile'
 import { useNavigate } from 'react-router-dom'
 import { T16 } from '@styles/typo'
+import { useDispatch } from 'react-redux'
+import { setIsAuthenticated } from '@redux/slices/auth'
+import { useAuthSlice } from '@redux/hooks'
 const drawerWidth = 240
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -105,6 +108,7 @@ export default function Dashboard() {
 	const [open, setOpen] = React.useState(false)
 	const [selectedItem, setSelectedItem] = React.useState('Choose File')
 	const Navigate = useNavigate()
+	const dispatch = useDispatch()
 	const handleDrawerOpen = () => {
 		setOpen(true)
 	}
@@ -134,6 +138,12 @@ export default function Dashboard() {
 	const handleListItemClick = (text: string): void => {
 		setSelectedItem(text)
 	}
+	const handleLogout = () => {
+		Navigate('/')
+		dispatch(setIsAuthenticated(false))
+	}
+	const username = sessionStorage.getItem('user_name')
+	const userDetails = useAuthSlice(e => e.userData)
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
@@ -144,6 +154,7 @@ export default function Dashboard() {
 				<StyledList>
 					<div>
 						{/* <Logo src={LogoIMG} /> */}
+
 						{['Choose File', 'Upload File', 'Choose Multiple files'].map(
 							(text, index) => (
 								<ListItem key={text} disablePadding sx={{ display: 'block' }}>
@@ -172,7 +183,7 @@ export default function Dashboard() {
 						<Divider />
 					</div>
 					{/* <MyAccount drawerStatus={open} /> */}
-					<T16 onClick={() => Navigate('/')}>Logout</T16>
+					<T16 onClick={handleLogout}>Logout</T16>
 				</StyledList>
 			</Drawer>
 			<DrawerToggle>
@@ -202,6 +213,7 @@ export default function Dashboard() {
 			</DrawerToggle>
 			<Box component='main' sx={{ flexGrow: 1, p: 3 }}>
 				{/* <DrawerHeader /> */}
+				<h1 style={{ color: 'black' }}>Welcome {userDetails.name}</h1>
 				{selectedItem && renderComponent(selectedItem)}
 			</Box>
 		</Box>

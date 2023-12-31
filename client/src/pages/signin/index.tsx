@@ -7,13 +7,14 @@ import axios from 'axios'
 import { loginUser } from '@/api'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setIsAuthenticated } from '@redux/slices/auth'
+import { setIsAuthenticated, setUserData } from '@redux/slices/auth'
 
 const Sigin = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const Navigate = useNavigate()
 	const dispatch = useDispatch()
+
 	const handleLogin = async (event: any) => {
 		event.preventDefault()
 		const userData = {
@@ -28,11 +29,15 @@ const Sigin = () => {
 					'Content-Type': 'application/json',
 				},
 			})
+			console.log(response)
 			if (response.status === 200) {
 				// Registration successful, you can handle the success accordingly
-				alert('User Login successfully')
 				dispatch(setIsAuthenticated(true))
 				Navigate('/dashboard')
+				dispatch(setUserData(response.data))
+				// sessionStorage.setItem('user_id', response.data.user_id)
+				// sessionStorage.setItem('user_name', response.data.name)
+				// sessionStorage.setItem('user_email', response.data.email)
 				// Redirect or show success message
 			} else {
 				// Registration failed, handle the error

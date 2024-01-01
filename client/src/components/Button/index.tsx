@@ -9,6 +9,7 @@ export interface IButton extends IPos {
 	children: React.ReactNode
 	onClick?: () => void
 	white?: boolean
+	type?: 'submit'
 }
 
 const Button = forwardRef<HTMLButtonElement, IButton>((p, ref) => {

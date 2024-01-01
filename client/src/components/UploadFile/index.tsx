@@ -1,35 +1,69 @@
-import React, { ChangeEvent, useState } from 'react'
-import { Container, Form } from './styled'
+import React, { useState } from 'react'
+import { Container, Form, Response } from './styled'
 import Button from '@components/Button'
+import axios from 'axios' // Don't forget to import axios
+import { T16Bold } from '@styles/typo'
+import { uploadSingleFile } from '@/api'
 
 const UploadFile = () => {
-	const [file, setFile] = useState(useState<File | null>(null))
+	const [file, setFile] = useState<File | null>(null)
 
-	const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-		// Capture the selected file from the input
-		if (event.target.files && event.target.files.length > 0) {
-			setFile(event.target.files[0])
+	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const selectedFile = event.target.files?.[0]
+		console.log(file)
+		if (selectedFile) {
+			// Check if the selected file is a PDF
+			if (selectedFile.type === 'application/pdf') {
+				setFile(selectedFile)
+			} else {
+				console.error('Please select a PDF file.')
+				alert('Please select a PDF file.')
+				// Clear the input field
+				event.target.value = ''
+				setFile(null)
+			}
 		}
 	}
 
-	const handleSubmit = () => {
-		// Create an object of formData
-		const formData = new FormData()
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
+		if (!file) {
+			console.error('No file selected')
+			return
+		}
 
-		// Update the formData object
-		formData.append('file', file)
+		try {
+			const formData = new FormData()
+			formData.append('file', file)
+			console.log(file)
 
-		// Request made to the backend api
-		// Send formData object
-		// axios.post('api/uploadfile', formData)
-		// 	.then(res => console.log(res))
+			const response = await axios.post(uploadSingleFile, formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+					user_id: '003',
+				},
+			})
+			if (response.status === 200) {
+				alert('File upload successfully')
+			} else {
+				console.error('Registration failed')
+			}
+		} catch (error) {
+			console.error('Error uploading file:', error)
+		}
 	}
+
 	return (
 		<Container>
 			<Form onSubmit={handleSubmit}>
 				<input type='file' name='file' onChange={handleFileChange} />
-				<Button>submit</Button>
+				<Button type='submit'>Submit</Button>
 			</Form>
+			<Response>
+				<Form>
+					<T16Bold>{`${file}`}</T16Bold>
+				</Form>
+			</Response>
 		</Container>
 	)
 }

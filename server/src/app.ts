@@ -1,6 +1,7 @@
 import express, { ErrorRequestHandler } from 'express'
 import createHttpError from 'http-errors'
 import exampleRoute from './routes/exampleRoutes'
+import getfilesRoute from './routes/getfilesRoutes'
 import userRoute from './routes/userRoutes'
 import uploadRoute from './routes/uploadRoutes'
 import mongoose from 'mongoose'
@@ -16,6 +17,7 @@ app.use(morgan('tiny')) //this is use for just showing that which request hit an
 // app.use("/", exampleRoute);
 app.use('/users', userRoute)
 app.use('/upload', uploadRoute)
+app.use('/get', getfilesRoute)
 
 app.use(() => {
 	throw createHttpError(404, 'Route not found')

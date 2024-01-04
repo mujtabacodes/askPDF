@@ -4,10 +4,11 @@ import Button from '@components/Button'
 import axios from 'axios'
 import { T16Bold } from '@styles/typo'
 import { uploadMultiplefiles, uploadSingleFile } from '@/api'
+import { useAuthSlice } from '@redux/hooks'
 
 const ChooseMultipleFiles = () => {
 	const [files, setFiles] = useState<FileList | null>(null)
-
+	const userDetails = useAuthSlice(e => e.userData)
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFiles = event.target.files
 
@@ -36,7 +37,7 @@ const ChooseMultipleFiles = () => {
 			const response = await axios.post(uploadMultiplefiles, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
-					user_id: '003',
+					user_id: `${userDetails.user_id}`,
 				},
 			})
 

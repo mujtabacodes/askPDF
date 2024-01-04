@@ -4,10 +4,11 @@ import Button from '@components/Button'
 import axios from 'axios' // Don't forget to import axios
 import { T16Bold } from '@styles/typo'
 import { uploadSingleFile } from '@/api'
+import { useAuthSlice } from '@redux/hooks'
 
 const UploadFile = () => {
 	const [file, setFile] = useState<File | null>(null)
-
+	const userDetails = useAuthSlice(e => e.userData)
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFile = event.target.files?.[0]
 		console.log(file)
@@ -40,7 +41,7 @@ const UploadFile = () => {
 			const response = await axios.post(uploadSingleFile, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
-					user_id: '003',
+					user_id: `${userDetails.user_id}`,
 				},
 			})
 			if (response.status === 200) {

@@ -7,7 +7,8 @@ export const Container = styled.div`
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 4rem;
-	background-color: whitesmoke;
+	/* background-color: whitesmoke; */
+	background-color: orange;
 	color: black;
 	right: 5rem;
 	top: 15;

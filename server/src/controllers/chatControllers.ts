@@ -1,13 +1,15 @@
-import { RequestHandler } from 'express'
-import http from 'http'
-import handler from 'serve-handler'
-import nanobuffer from 'nanobuffer'
-import { Server } from 'socket.io'
-export const startChat: RequestHandler = (req, res, next) => {
-	try {
-		console.log('React to chat')
-	} catch (error) {
-		console.error('Got an error while retrieving files:', error)
-		return res.status(500).json({ message: 'Internal Server Error' })
-	}
+import { Request, Response } from 'express'
+import { Socket } from 'socket.io'
+
+export const startChat = (req: Request, res: Response) => {
+	console.log('We are at start chat Controller')
+	const io = req.io
+
+	io.on('connection', (socket: any) => {
+		console.log('New user connected' + socket.id)
+		// Handle events, emit messages, etc.
+	})
+
+	// Return a success response if needed
+	// res.status(200).json({ message: 'Chat started successfully' });
 }

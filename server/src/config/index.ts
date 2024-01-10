@@ -1,6 +1,7 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 
-export const DB = process.env.DB!;
-export const PORT = parseInt(process.env.PORT!);
+export const DB = process.env.DB!
+export const PORT = parseInt(process.env.PORT!)
+export const FRONTEND_URL = process.env.FRONTEND_URL

@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import io from 'socket.io-client'
+
 import {
 	BotContainer,
 	BotIcon,
@@ -16,7 +18,15 @@ import { BsFillChatDotsFill } from 'react-icons/bs'
 import Textfield from '@components/Textfield'
 import Button from '@components/Button'
 import { Send } from '@mui/icons-material'
+
 const Chat = () => {
+	useEffect(() => {
+		const socket = io('http://localhost:5000')
+		socket.on('connect', () => {
+			console.log('Socket Connected!!!')
+		})
+		socket.emit('send_message', { message: 'Hello' })
+	}, [])
 	return (
 		<Container>
 			<ChatContainer>

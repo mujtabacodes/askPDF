@@ -78,8 +78,8 @@ const ChooseOneFile = () => {
 				)}
 			</div>
 			<div>
-				{fileUploaded && <Chat />}
-				{/* <Chat /> */}
+				{/* {fileUploaded && <Chat />} */}
+				<Chat />
 			</div>
 		</Container>
 	)

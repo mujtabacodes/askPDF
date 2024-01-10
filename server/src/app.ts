@@ -40,8 +40,12 @@ const io = new SocketIOServer(server, {
 
 io.on('connection', socket => {
 	console.log('user connected :' + socket.id)
+	var query = ''
 	socket.on('send_message', data => {
+		query = data.message
 		console.log(data)
+		socket.emit('server_response', { from: 'bot', message: { query } })
+		console.log(query)
 	})
 })
 

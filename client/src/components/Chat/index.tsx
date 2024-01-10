@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { FormEventHandler, useEffect, useState } from 'react'
 import io from 'socket.io-client'
 
 import {
@@ -13,126 +13,70 @@ import {
 	UserIcon,
 	UserText,
 } from './styled'
+
 import { FaRobot } from 'react-icons/fa'
 import { BsFillChatDotsFill } from 'react-icons/bs'
 import Textfield from '@components/Textfield'
 import Button from '@components/Button'
 import { Send } from '@mui/icons-material'
+import { chatAPI } from '@/api'
 
 const Chat = () => {
+	const [messages, setMessages] = useState([])
+	const [input, setInput] = useState('')
+	const socket = io(chatAPI)
+
 	useEffect(() => {
-		const socket = io('http://localhost:5000')
 		socket.on('connect', () => {
 			console.log('Socket Connected!!!')
 		})
-		socket.emit('send_message', { message: 'Hello' })
-	}, [])
+
+		// Listen for incoming messages from the server
+		socket.on('server_response', data => {
+			setMessages([...messages, { type: data.from, text: data.message }])
+		})
+	}, [messages])
+
+	const handleSubmit = (event: any) => {
+		event.preventDefault()
+
+		// Send the user's message to the server
+		socket.emit('send_message', { from: 'user', message: input })
+		setMessages([...messages, { type: 'user', text: input }])
+		setInput('')
+	}
+
 	return (
 		<Container>
 			<ChatContainer>
-				<BotContainer>
-					<BotIcon>
-						<FaRobot style={{ color: 'black' }} />
-					</BotIcon>
-					<BotText>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum hic fuga unde
-						obcaecati deserunt porro enim consectetur fugit placeat impedit, nam odio
-						officia explicabo iure, quam tempora sit vitae est ab pariatur.
-					</BotText>
-				</BotContainer>
-
-				<UserContainer>
-					<UserText>
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam nisi
-						blanditiis suscipit doloribus inventore amet tempora autem hic veniam,
-						adipisci a!
-					</UserText>
-
-					<UserIcon>
-						<BsFillChatDotsFill />
-					</UserIcon>
-				</UserContainer>
-				<UserContainer>
-					<UserText>
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam nisi
-						blanditiis suscipit doloribus inventore amet tempora autem hic veniam,
-						adipisci a!
-					</UserText>
-
-					<UserIcon>
-						<BsFillChatDotsFill />
-					</UserIcon>
-				</UserContainer>
-				<UserContainer>
-					<UserText>
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam nisi
-						blanditiis suscipit doloribus inventore amet tempora autem hic veniam,
-						adipisci a!
-					</UserText>
-
-					<UserIcon>
-						<BsFillChatDotsFill />
-					</UserIcon>
-				</UserContainer>
-				<UserContainer>
-					<UserText>
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam nisi
-						blanditiis suscipit doloribus inventore amet tempora autem hic veniam,
-						adipisci a!
-					</UserText>
-
-					<UserIcon>
-						<BsFillChatDotsFill />
-					</UserIcon>
-				</UserContainer>
-				<UserContainer>
-					<UserText>
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam nisi
-						blanditiis suscipit doloribus inventore amet tempora autem hic veniam,
-						adipisci a!
-					</UserText>
-
-					<UserIcon>
-						<BsFillChatDotsFill />
-					</UserIcon>
-				</UserContainer>
-				<UserContainer>
-					<UserText>
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam nisi
-						blanditiis suscipit doloribus inventore amet tempora autem hic veniam,
-						adipisci a!
-					</UserText>
-
-					<UserIcon>
-						<BsFillChatDotsFill />
-					</UserIcon>
-				</UserContainer>
-				<UserContainer>
-					<UserText>
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam nisi
-						blanditiis suscipit doloribus inventore amet tempora autem hic veniam,
-						adipisci a!
-					</UserText>
-
-					<UserIcon>
-						<BsFillChatDotsFill />
-					</UserIcon>
-				</UserContainer>
-				<UserContainer>
-					<UserText>
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsam nisi
-						blanditiis suscipit doloribus inventore amet tempora autem hic veniam,
-						adipisci a!
-					</UserText>
-
-					<UserIcon>
-						<BsFillChatDotsFill />
-					</UserIcon>
-				</UserContainer>
+				{messages.map((message, index) => (
+					<React.Fragment key={index}>
+						{message.type === 'bot' ? (
+							<BotContainer>
+								<BotIcon>
+									<FaRobot style={{ color: 'black' }} />
+								</BotIcon>
+								<BotText>{message.text}</BotText>
+							</BotContainer>
+						) : (
+							<UserContainer>
+								<UserText>{message.text}</UserText>
+								<UserIcon>
+									<BsFillChatDotsFill />
+								</UserIcon>
+							</UserContainer>
+						)}
+					</React.Fragment>
+				))}
 			</ChatContainer>
-			<InputContainer>
-				<Input type='text' placeholder='Ask to your PDF' />
-				<Button>
+			<InputContainer onSubmit={handleSubmit}>
+				<Input
+					type='text'
+					placeholder='Ask to your PDF'
+					onChange={event => setInput(event.target.value)}
+					value={input}
+				/>
+				<Button type='submit'>
 					<Send />
 				</Button>
 			</InputContainer>

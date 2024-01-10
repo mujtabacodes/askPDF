@@ -42,7 +42,7 @@ export const UserText = styled(BotText)`
 export const UserIcon = styled(BotIcon)`
 	font-size: 1.5rem;
 `
-export const InputContainer = styled.div`
+export const InputContainer = styled.form`
 	display: flex;
 	width: 100%;
 	border: 1px solid ${primaryColor};

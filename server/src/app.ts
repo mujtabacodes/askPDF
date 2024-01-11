@@ -40,11 +40,13 @@ const io = new SocketIOServer(server, {
 
 io.on('connection', socket => {
 	console.log('user connected :' + socket.id)
-	var query = ''
+	socket.emit('server_response', { type: 'bot', message: 'How can I help you today?' })
 	socket.on('send_message', data => {
-		query = data.message
+		socket.emit('user_message', { type: 'user', message: data.message })
+		var query = ''
+		query = `Your message ${data.message} is received`
 		console.log(data)
-		socket.emit('server_response', { from: 'bot', message: { query } })
+		socket.emit('server_response', { type: 'bot', message: query })
 		console.log(query)
 	})
 })

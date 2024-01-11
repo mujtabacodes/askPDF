@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useEffect, useState } from 'react'
+import React, { FormEventHandler, useEffect, useRef, useState } from 'react'
 import io from 'socket.io-client'
 
 import {
@@ -24,31 +24,53 @@ import { chatAPI } from '@/api'
 const Chat = () => {
 	const [messages, setMessages] = useState([])
 	const [input, setInput] = useState('')
+	const chatContainerRef = useRef(null)
+
 	const socket = io(chatAPI)
 
 	useEffect(() => {
 		socket.on('connect', () => {
 			console.log('Socket Connected!!!')
 		})
-
-		// Listen for incoming messages from the server
 		socket.on('server_response', data => {
-			setMessages([...messages, { type: data.from, text: data.message }])
+			setMessages([{ type: data.type, message: data.message }])
 		})
-	}, [messages])
+		scrollToBottom()
+	}, [])
 
-	const handleSubmit = (event: any) => {
+	const handleSubmit = async (event: any) => {
 		event.preventDefault()
-
-		// Send the user's message to the server
-		socket.emit('send_message', { from: 'user', message: input })
-		setMessages([...messages, { type: 'user', text: input }])
+		socket.emit('send_message', { type: 'user', message: input })
 		setInput('')
+		checkServerResponse()
+		scrollToBottom() // Scroll to bottom after sending a message
 	}
 
+	const checkServerResponse = () => {
+		socket.on('user_message', data => {
+			console.log(data.message)
+			setMessages([...messages, { type: data.type, message: data.message }])
+		})
+		scrollToBottom()
+		socket.on('server_response', data => {
+			console.log(data.message)
+			setMessages(prevMessages => [
+				...prevMessages,
+				{ type: data.type, message: data.message },
+			])
+		})
+		scrollToBottom()
+	}
+	const scrollToBottom = () => {
+		if (chatContainerRef.current) {
+			chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
+			console.log('We are at chatRef')
+			console.log(chatContainerRef.current)
+		}
+	}
 	return (
 		<Container>
-			<ChatContainer>
+			<ChatContainer ref={chatContainerRef}>
 				{messages.map((message, index) => (
 					<React.Fragment key={index}>
 						{message.type === 'bot' ? (
@@ -56,11 +78,11 @@ const Chat = () => {
 								<BotIcon>
 									<FaRobot style={{ color: 'black' }} />
 								</BotIcon>
-								<BotText>{message.text}</BotText>
+								<BotText>{message.message}</BotText>
 							</BotContainer>
 						) : (
 							<UserContainer>
-								<UserText>{message.text}</UserText>
+								<UserText>{message.message}</UserText>
 								<UserIcon>
 									<BsFillChatDotsFill />
 								</UserIcon>

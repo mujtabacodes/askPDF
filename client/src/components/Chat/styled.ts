@@ -7,8 +7,8 @@ export const Container = styled.div`
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 4rem;
-	/* background-color: whitesmoke; */
-	background-color: orange;
+	background-color: whitesmoke;
+	/* background-color: orange; */
 	color: black;
 	right: 5rem;
 	top: 15;
@@ -35,7 +35,9 @@ export const BotText = styled.div`
 	padding: 1rem;
 	border-radius: 0.5rem;
 `
-export const UserContainer = styled(BotContainer)``
+export const UserContainer = styled(BotContainer)`
+	justify-content: end;
+`
 export const UserText = styled(BotText)`
 	background: lightgray;
 `
@@ -68,6 +70,6 @@ export const ChatContainer = styled.div`
 	flex-direction: column;
 	gap: 1rem;
 	padding-right: 1rem;
-	max-height: 600px; /* Set your desired height */
+	max-height: 350px; /* Set your desired height */
 	overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
 `

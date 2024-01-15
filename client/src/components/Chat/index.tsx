@@ -13,7 +13,6 @@ import {
 	UserIcon,
 	UserText,
 } from './styled'
-
 import { FaRobot } from 'react-icons/fa'
 import { BsFillChatDotsFill } from 'react-icons/bs'
 import Textfield from '@components/Textfield'
@@ -21,7 +20,13 @@ import Button from '@components/Button'
 import { Send } from '@mui/icons-material'
 import { chatAPI } from '@/api'
 
-const Chat = () => {
+interface IChat {
+	fileName: string
+}
+
+const Chat = (fileName: IChat) => {
+	alert('File name is')
+	console.log(fileName)
 	const [messages, setMessages] = useState([])
 	const [input, setInput] = useState('')
 	const chatContainerRef = useRef(null)

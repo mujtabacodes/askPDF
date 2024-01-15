@@ -1,15 +1,16 @@
-import { Request, Response } from 'express'
+// chatController.ts
 import { Socket } from 'socket.io'
+import { Server as SocketIOServer } from 'socket.io'
 
-export const startChat = (req: Request, res: Response) => {
-	console.log('We are at start chat Controller')
-	const io = req.io
-
-	io.on('connection', (socket: any) => {
-		console.log('New user connected' + socket.id)
-		// Handle events, emit messages, etc.
+export const startChat = (io: SocketIOServer) => (socket: Socket) => {
+	console.log('user connected :' + socket.id)
+	socket.emit('server_response', { type: 'bot', message: 'How can I help you today?' })
+	socket.on('send_message', data => {
+		socket.emit('user_message', { type: 'user', message: data.message })
+		var query = ''
+		query = `Your message ${data.message} is received`
+		console.log(data)
+		socket.emit('server_response', { type: 'bot', message: query })
+		console.log(query)
 	})
-
-	// Return a success response if needed
-	// res.status(200).json({ message: 'Chat started successfully' });
 }

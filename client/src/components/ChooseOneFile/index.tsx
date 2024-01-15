@@ -9,7 +9,7 @@ interface IUserDetails {
 	user_id: string
 }
 const ChooseOneFile = () => {
-	const [selectedOption, setSelectedOption] = useState(null)
+	const [selectedOption, setSelectedOption] = useState('')
 	const [files, setFiles] = useState([])
 	const [fileUploaded, setFileUploaded] = useState(false)
 	const userDetails = useAuthSlice(e => e.userData)
@@ -78,7 +78,7 @@ const ChooseOneFile = () => {
 				)}
 			</div>
 			<div>
-				{fileUploaded && <Chat />}
+				{fileUploaded && <Chat fileName={selectedOption} />}
 				{/* <Chat /> */}
 			</div>
 		</Container>

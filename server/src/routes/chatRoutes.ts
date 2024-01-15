@@ -1,8 +1,14 @@
+// chatRoutes.ts
 import express from 'express'
-import { Socket } from 'socket.io'
+import { Router } from 'express'
+import { Server as SocketIOServer } from 'socket.io'
 import { startChat } from '../controllers/chatControllers'
+const router: Router = express.Router()
 
-const router = express.Router()
+const chatRoute = (io: SocketIOServer) => {
+	io.on('connection', startChat(io))
 
-router.get('/', startChat)
-export default router
+	return router
+}
+
+export default chatRoute

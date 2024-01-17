@@ -24,9 +24,8 @@ interface IChat {
 	fileName: string
 }
 
-const Chat = (fileName: IChat) => {
-	alert('File name is')
-	console.log(fileName)
+const Chat = (p: IChat) => {
+	const { fileName } = p
 	const [messages, setMessages] = useState([])
 	const [input, setInput] = useState('')
 	const chatContainerRef = useRef(null)
@@ -37,8 +36,12 @@ const Chat = (fileName: IChat) => {
 		socket.on('connect', () => {
 			console.log('Socket Connected!!!')
 		})
+		socket.emit('file_send', { type: 'bot', message: fileName })
 		socket.on('server_response', data => {
-			setMessages([{ type: data.type, message: data.message }])
+			setMessages(prevMessages => [
+				...prevMessages,
+				{ type: data.type, message: data.message },
+			])
 		})
 		scrollToBottom()
 	}, [])

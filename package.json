@@ -11,7 +11,8 @@
     "build:client": "cd client && yarn build",
     "lint:client": "cd client && yarn lint",
     "preview:client": "cd client && yarn preview",
-    "start:both": "concurrently \"yarn start:client\" \"npm run start:server\""
+    "start:both": "concurrently \"yarn start:client\" \"npm run start:server\"",
+    "installation": "concurrently \"cd client && yarn\" \"cd server && yarn\""
   },
   "dependencies": {
     "concurrently": "^7.0.0"

@@ -19,6 +19,7 @@ import Textfield from '@components/Textfield'
 import Button from '@components/Button'
 import { Send } from '@mui/icons-material'
 import { chatAPI } from '@/api'
+import { useAuthSlice } from '@redux/hooks'
 
 interface IChat {
 	fileName: string
@@ -31,12 +32,16 @@ const Chat = (p: IChat) => {
 	const chatContainerRef = useRef(null)
 
 	const socket = io(chatAPI)
-
+	const userDetails = useAuthSlice(e => e.userData)
 	useEffect(() => {
 		socket.on('connect', () => {
 			console.log('Socket Connected!!!')
 		})
-		socket.emit('file_send', { type: 'bot', message: fileName })
+		socket.emit('file_send', {
+			type: 'bot',
+			file: fileName,
+			user_id: userDetails?.user_id,
+		})
 		socket.on('server_response', data => {
 			setMessages(prevMessages => [
 				...prevMessages,

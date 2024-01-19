@@ -33,7 +33,7 @@ export const ChatGPT = async (prompt: any) => {
 		const outputParser = new JsonOutputFunctionsParser()
 		const runnable = createStructuredOutputRunnable({
 			outputSchema: jsonSchema,
-			llm: model,
+			llm: chatModel,
 			prompt,
 			outputParser,
 		})

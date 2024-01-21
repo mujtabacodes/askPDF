@@ -2,8 +2,11 @@ import { ChatOpenAI } from '@langchain/openai'
 import { PromptTemplate } from '@langchain/core/prompts'
 import { OPENAI_KEY } from '../../config'
 import { retriever } from './retriever'
-import { StringOutputParser } from 'langchain/schema/output_parser'
+import { StringOutputParser } from '@langchain/core/output_parsers'
+import { combineDocuments } from '../../common/funct'
+import { RunnableSequence, RunnablePassthrough } from '@langchain/core/runnables'
 const llm = new ChatOpenAI({ openAIApiKey: OPENAI_KEY })
+
 export const Standalone = async (userQuestion: string) => {
 	const standaloneTemplate =
 		'Given a question, convert it to a standalone question. question: {question} standalone question:'
@@ -12,35 +15,33 @@ export const Standalone = async (userQuestion: string) => {
 	question:{question}
 	answer:
 	`
-	const combineDocuments = (docs: any) => {
-		return docs.map((doc: any) => doc.pageContent).join('\n\n')
-	}
 
 	const standalonePrompt = PromptTemplate.fromTemplate(standaloneTemplate)
-	const standaloneChain = standalonePrompt
+	const answerPrompt = PromptTemplate.fromTemplate(answerTemplate)
+
+	const standaloneQuestionChain = standalonePrompt
 		.pipe(llm)
 		.pipe(new StringOutputParser())
-		.pipe(retriever)
-		.pipe(combineDocuments) // first it will create standlonePrompt then convert to or extract string from output the pass to retriever and get most close chunks
+	const retriverChain = RunnableSequence.from([
+		prevResult => prevResult.standalone_question,
+		retriever,
+		combineDocuments,
+	])
+	const answerChain = answerPrompt.pipe(llm).pipe(new StringOutputParser())
 
-	const response = await standaloneChain.invoke({ question: userQuestion })
+	const chain = RunnableSequence.from([
+		{
+			standalone_question: standaloneQuestionChain,
+			origin_input: new RunnablePassthrough(),
+		},
+		{
+			context: retriverChain,
+			question: original_input => original_input.question,
+		},
+		prevResult => console.log(prevResult),
+		answerChain,
+	])
+	const response = await chain.invoke({ question: userQuestion })
 	console.log(response)
-	// return response.content
+	return response
 }
-
-//example
-// import { ChatOpenAI } from '@langchain/openai'
-// import { PromptTemplate } from 'langchain/prompts'
-// import { OPENAI_KEY } from '../config'
-
-// const llm = new ChatOpenAI({ openAIApiKey: OPENAI_KEY })
-
-// const tweetTemplate =
-// 	'Generate a promotion tweet for a product, from this product description: {productDesc}'
-
-// const tweetPrompt = PromptTemplate.fromTemplate(tweetTemplate)
-
-// const tweetChain = tweetPrompt.pipe(llm)
-// const response = await tweetChain.invoke({ productDesc: 'Electric shoes' })
-
-// console.log(response.content)

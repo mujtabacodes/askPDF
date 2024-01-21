@@ -16,22 +16,22 @@ export const ChatGPT = async (prompt: any) => {
 	try {
 		const output = await splitter.createDocuments([prompt])
 		return 'OUt is splitted'
-		// const client = createClient(SUPABASE_URL, SUPABASE_API_KEY)
-		// await SupabaseVectorStore.fromDocuments(
-		// 	output,
-		// 	new OpenAIEmbeddings({ openAIApiKey: OPENAI_KEY }),
-		// 	{
-		// 		client,
-		// 		tableName: 'documents',
-		// 	},
-		// )
-		// 	.then((res: any) => {
-		// 		console.log(res)
-		// 		return res
-		// 	})
-		// 	.catch((err: any) => {
-		// 		console.log(err)
-		// 	})
+		const client = createClient(SUPABASE_URL, SUPABASE_API_KEY)
+		await SupabaseVectorStore.fromDocuments(
+			output,
+			new OpenAIEmbeddings({ openAIApiKey: OPENAI_KEY }),
+			{
+				client,
+				tableName: 'documents',
+			},
+		)
+			.then((res: any) => {
+				console.log(res)
+				return res
+			})
+			.catch((err: any) => {
+				console.log(err)
+			})
 	} catch (error) {
 		// return output
 		console.error('Error communicating with ChatGPT API:', `${error}`)

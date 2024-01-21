@@ -4,7 +4,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import pdfParse from 'pdf-parse'
 import { ChatGPT } from '../ai'
-import { Standalone } from '../ai/utils/Standalone'
+import { Standalone } from '../ai/utils/standalone'
 
 const ExtractFileName = (fileName: string) => {
 	const cleanedFileName = fileName.substring(fileName.indexOf('-') + 1)

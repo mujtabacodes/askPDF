@@ -3,8 +3,8 @@ import { Server as SocketIOServer } from 'socket.io'
 import * as fs from 'fs'
 import * as path from 'path'
 import pdfParse from 'pdf-parse'
-import { ChatGPT_API } from '../config'
 import { ChatGPT } from '../ai'
+import { Standalone } from '../ai/utils/Standalone'
 
 const ExtractFileName = (fileName: string) => {
 	const cleanedFileName = fileName.substring(fileName.indexOf('-') + 1)
@@ -23,11 +23,10 @@ const processPDF = async (userId: string, fileName: string) => {
 	const pdfText = data.text
 
 	// Generate a question for ChatGPT based on the PDF content
-	// const chatGPTQuestion = await ChatGPT(pdfText)
-	// const chatGPTQuestion = await ChatGPT('hi')
+	const chatGPTResponse = await ChatGPT(pdfText)
 	// console.log('We are at chatController')
-	// console.log(chatGPTQuestion)
-	return pdfText
+	console.log(chatGPTResponse)
+	return chatGPTResponse
 }
 
 export const startChat = (io: SocketIOServer) => (socket: Socket) => {
@@ -54,10 +53,11 @@ export const startChat = (io: SocketIOServer) => (socket: Socket) => {
 
 	socket.on('send_message', async data => {
 		socket.emit('user_message', { type: 'user', message: data.message })
+		const res = await Standalone(data.message)
 
 		// Continue the conversation with ChatGPT based on user's message
 		// chatGPTResponse = await ChatGPT(data.message)
 		chatGPTResponse = 'ChatGPT response is cooking....'
-		socket.emit('server_response', { type: 'bot', message: chatGPTResponse })
+		socket.emit('server_response', { type: 'bot', message: res })
 	})
 }

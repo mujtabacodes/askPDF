@@ -1,48 +1,39 @@
-import { ChatOpenAI } from '@langchain/openai'
-import { ChatGPT_API } from '../config'
-import { ChatPromptTemplate } from '@langchain/core/prompts'
-import { createStructuredOutputRunnable } from 'langchain/chains/openai_functions'
-import { JsonOutputFunctionsParser } from 'langchain/output_parsers'
-
-const jsonSchema = {
-	title: 'Person',
-	description: 'Identifying information about a person.',
-	type: 'object',
-	properties: {
-		name: { title: 'Name', description: "The person's name", type: 'string' },
-		age: { title: 'Age', description: "The person's age", type: 'integer' },
-		fav_food: {
-			title: 'Fav Food',
-			description: "The person's favorite food",
-			type: 'string',
-		},
-	},
-	required: ['name', 'age'],
-}
-
+import { OpenAIEmbeddings } from '@langchain/openai'
+import { OPENAI_KEY, SUPABASE_API_KEY, SUPABASE_URL } from '../config'
+import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
+import { createClient } from '@supabase/supabase-js'
+import { SupabaseVectorStore } from 'langchain/vectorstores/supabase'
 export const ChatGPT = async (prompt: any) => {
-	const chatModel = new ChatOpenAI({
-		temperature: 0.9,
-		openAIApiKey: ChatGPT_API,
+	// const chatModel = new ChatOpenAI({
+	// 	temperature: 0.9,
+	// 	openAIApiKey: ChatGPT_API,
+	// })
+	const splitter = new RecursiveCharacterTextSplitter({
+		chunkSize: 500,
+		separators: ['\n\n', '\n', ' ', ''], //default setting
+		chunkOverlap: 50,
 	})
-
 	try {
-		const prompt = ChatPromptTemplate.fromMessages([
-			['human', 'Human description: {description}'],
-		])
-		const outputParser = new JsonOutputFunctionsParser()
-		const runnable = createStructuredOutputRunnable({
-			outputSchema: jsonSchema,
-			llm: chatModel,
-			prompt,
-			outputParser,
-		})
-		const response = await runnable.invoke({
-			description:
-				"My name's John Doe and I'm 30 years old. My favorite kind of food are chocolate chip cookies.",
-		})
-		console.log(response)
+		const output = await splitter.createDocuments([prompt])
+		return 'OUt is splitted'
+		// const client = createClient(SUPABASE_URL, SUPABASE_API_KEY)
+		// await SupabaseVectorStore.fromDocuments(
+		// 	output,
+		// 	new OpenAIEmbeddings({ openAIApiKey: OPENAI_KEY }),
+		// 	{
+		// 		client,
+		// 		tableName: 'documents',
+		// 	},
+		// )
+		// 	.then((res: any) => {
+		// 		console.log(res)
+		// 		return res
+		// 	})
+		// 	.catch((err: any) => {
+		// 		console.log(err)
+		// 	})
 	} catch (error) {
+		// return output
 		console.error('Error communicating with ChatGPT API:', `${error}`)
 		throw error
 	}

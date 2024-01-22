@@ -2,7 +2,7 @@ import { OpenAIEmbeddings } from '@langchain/openai'
 import { OPENAI_KEY, SUPABASE_API_KEY, SUPABASE_URL } from '../config'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { createClient } from '@supabase/supabase-js'
-import { SupabaseVectorStore } from 'langchain/vectorstores/supabase'
+import { SupabaseVectorStore } from '@langchain/community/vectorstores/supabase'
 export const ChatGPT = async (prompt: any) => {
 	// const chatModel = new ChatOpenAI({
 	// 	temperature: 0.9,

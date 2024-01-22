@@ -195,7 +195,7 @@ export default function Dashboard() {
 						onClick={handleDrawerOpen}
 						edge='start'
 						sx={{
-							marginRight: 5,
+							marginRight: 0,
 						}}
 					>
 						<ChevronRightIcon className='drawertoggle' />
@@ -206,7 +206,7 @@ export default function Dashboard() {
 						aria-label='open drawer'
 						edge='start'
 						sx={{
-							marginRight: 5,
+							marginRight: 0,
 						}}
 					>
 						<ChevronLeftIcon className='drawertoggle' />
@@ -215,7 +215,7 @@ export default function Dashboard() {
 			</DrawerToggle>
 			<Box component='main' sx={{ flexGrow: 1, p: 3 }}>
 				{/* <DrawerHeader /> */}
-				<h1 style={{ color: 'black' }}>Welcome {userDetails.name}</h1>
+				<h1 style={{ color: 'black' }}>Welcome {userDetails?.name}</h1>
 				{selectedItem && renderComponent(selectedItem)}
 			</Box>
 		</Box>

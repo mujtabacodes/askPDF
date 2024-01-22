@@ -2,17 +2,16 @@ import styled from '@emotion/styled'
 import { primaryColor } from '@styles/colors'
 
 export const Container = styled.div`
-	position: absolute;
+	/* position: absolute; */
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 4rem;
-	background-color: whitesmoke;
+	/* background-color: whitesmoke; */
 	/* background-color: orange; */
 	color: black;
 	right: 5rem;
-	top: 15;
-	width: 40%;
+	width: 100%;
 	margin-right: 1rem;
 	height: fit-content;
 	border: 0.7rem solid ${primaryColor};

@@ -52,35 +52,40 @@ const ChooseOneFile = () => {
 	}, [setFiles])
 	return (
 		<Container>
-			<div>
-				{files.length > 0 ? (
-					<React.Fragment>
-						{files.map((fileName, index) => (
-							<div key={index}>
-								<input
-									type='radio'
-									id={`option${index}`}
-									name='option'
-									value={fileName} // Use the file name as the value
-									onChange={handleOptionChange}
-								/>
-								<label htmlFor={`option${index}`}>{ExtractFileName(fileName)}</label>
-							</div>
-						))}
-						{selectedOption && (
-							<Button above={10} onClick={handleSubmit}>
-								Start Chat
-							</Button>
-						)}
-					</React.Fragment>
-				) : (
-					<p>No files available</p>
-				)}
-			</div>
-			<div>
-				{fileUploaded && <Chat fileName={selectedOption} />}
-				{/* <Chat /> */}
-			</div>
+			{!fileUploaded ? (
+				<div>
+					{files.length > 0 ? (
+						<React.Fragment>
+							{files.map((fileName, index) => (
+								<div key={index}>
+									<input
+										type='radio'
+										id={`option${index}`}
+										name='option'
+										value={fileName} // Use the file name as the value
+										onChange={handleOptionChange}
+									/>
+									<label htmlFor={`option${index}`} style={{ color: 'black' }}>
+										{ExtractFileName(fileName)}
+									</label>
+								</div>
+							))}
+							{selectedOption && (
+								<Button above={10} primary onClick={handleSubmit}>
+									Start Chat
+								</Button>
+							)}
+						</React.Fragment>
+					) : (
+						<p>No files available</p>
+					)}
+				</div>
+			) : (
+				<div>
+					<Chat fileName={selectedOption} />
+					{/* <Chat /> */}
+				</div>
+			)}
 		</Container>
 	)
 }

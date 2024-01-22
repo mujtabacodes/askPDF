@@ -1,9 +1,7 @@
 import styled from '@emotion/styled'
+import { primaryColor } from '@styles/colors'
 
 export const Container = styled.div`
-	color: black;
-	background-color: grey;
-	display: flex;
-	justify-content: space-between;
-	/* width: 100%; */
+	width: 100%;
+	/* border: 1px solid ${primaryColor}; */
 `

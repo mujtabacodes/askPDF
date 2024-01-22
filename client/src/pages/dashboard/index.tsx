@@ -183,7 +183,9 @@ export default function Dashboard() {
 						<Divider />
 					</div>
 					{/* <MyAccount drawerStatus={open} /> */}
-					<T16 onClick={handleLogout}>Logout</T16>
+					<T16 onClick={handleLogout} style={{ cursor: 'pointer' }}>
+						Logout
+					</T16>
 				</StyledList>
 			</Drawer>
 			<DrawerToggle>

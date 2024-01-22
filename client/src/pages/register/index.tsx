@@ -75,11 +75,14 @@ const Register = () => {
 						setValue={setPassword}
 						required
 					/>
-					<CustomButton>Continue</CustomButton>
+					<CustomButton primary>Continue</CustomButton>
 				</Form>
 				<Row above={10} gap={10}>
 					<T14 style={{ color: 'black' }}>Already have an account?</T14>
-					<T14 style={{ color: 'blue' }} onClick={() => Navigate('/signin')}>
+					<T14
+						style={{ color: 'blue', cursor: 'pointer' }}
+						onClick={() => Navigate('/signin')}
+					>
 						Login
 					</T14>
 				</Row>

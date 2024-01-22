@@ -43,6 +43,8 @@ const Chat = (p: IChat) => {
 			user_id: userDetails?.user_id,
 		})
 		socket.on('server_response', data => {
+			console.log('Server_response')
+			console.log(data)
 			setMessages(prevMessages => [
 				...prevMessages,
 				{ type: data.type, message: data.message },
@@ -61,12 +63,13 @@ const Chat = (p: IChat) => {
 
 	const checkServerResponse = () => {
 		socket.on('user_message', data => {
+			console.log('user_message')
 			console.log(data.message)
 			setMessages([...messages, { type: data.type, message: data.message }])
 		})
 		scrollToBottom()
 		socket.on('server_response', data => {
-			console.log(data.message)
+			console.log('Server_response')
 			setMessages(prevMessages => [
 				...prevMessages,
 				{ type: data.type, message: data.message },

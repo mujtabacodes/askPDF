@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
+import { Box } from '@mui/material'
 import List from '@mui/material/List'
-import { drawerBG, navBG, primaryColor } from '@styles/colors'
+import { dashboardBG, drawerBG, navBG, primaryColor } from '@styles/colors'
 export const DrawerToggle = styled.div`
 	display: flex;
 	justify-content: center;
@@ -29,4 +30,10 @@ export const Logo = styled.img`
 	padding: 1rem;
 	border-radius: 12rem;
 	height: 80px;
+`
+export const StyledBox = styled(Box)`
+	position: relative;
+	background: ${dashboardBG};
+	width: 100vw;
+	height: 100vh;
 `

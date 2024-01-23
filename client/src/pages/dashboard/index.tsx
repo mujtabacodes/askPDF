@@ -18,8 +18,8 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
-import { drawerBG, navBG } from '@styles/colors'
-import { DrawerToggle, Logo, StyledList } from './styled'
+import { dashboardBG, drawerBG, navBG } from '@styles/colors'
+import { DrawerToggle, Logo, StyledBox, StyledList } from './styled'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import SelectAllIcon from '@mui/icons-material/SelectAll'
 import LogoIMG from '@assets/images/logo-nobg.png'
@@ -188,7 +188,7 @@ export default function Dashboard() {
 					</T16>
 				</StyledList>
 			</Drawer>
-			<DrawerToggle>
+			<DrawerToggle style={{ background: `${dashboardBG}` }}>
 				{!open ? (
 					<IconButton
 						aria-label='open drawer'
@@ -196,6 +196,7 @@ export default function Dashboard() {
 						edge='start'
 						sx={{
 							marginRight: 0,
+							background: `${dashboardBG}`,
 						}}
 					>
 						<ChevronRightIcon className='drawertoggle' />
@@ -207,17 +208,18 @@ export default function Dashboard() {
 						edge='start'
 						sx={{
 							marginRight: 0,
+							background: `${dashboardBG}`,
 						}}
 					>
 						<ChevronLeftIcon className='drawertoggle' />
 					</IconButton>
 				)}
 			</DrawerToggle>
-			<Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+			<StyledBox component='main' sx={{ flexGrow: 1, p: 3 }}>
 				{/* <DrawerHeader /> */}
 				<h1 style={{ color: 'black' }}>Welcome {userDetails?.name}</h1>
 				{selectedItem && renderComponent(selectedItem)}
-			</Box>
+			</StyledBox>
 		</Box>
 	)
 }

@@ -2,21 +2,15 @@ import styled from '@emotion/styled'
 import { primaryColor } from '@styles/colors'
 
 export const Container = styled.div`
-	/* position: absolute; */
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	gap: 4rem;
-	/* background-color: whitesmoke; */
-	/* background-color: orange; */
-	color: black;
-	right: 5rem;
-	width: 100%;
-	margin-right: 1rem;
-	height: fit-content;
-	border: 0.7rem solid ${primaryColor};
-	border-radius: 3rem;
-	padding: 2rem;
+	gap: 0rem;
+	min-height: 80vh;
+	@media (min-width: 540px) {
+		padding: 2rem;
+		margin: 0 10%;
+	}
 `
 export const BotContainer = styled.div`
 	display: flex;
@@ -46,6 +40,7 @@ export const UserIcon = styled(BotIcon)`
 export const InputContainer = styled.form`
 	display: flex;
 	width: 100%;
+
 	border: 1px solid ${primaryColor};
 	border-radius: 2.5rem;
 `
@@ -69,6 +64,11 @@ export const ChatContainer = styled.div`
 	flex-direction: column;
 	gap: 1rem;
 	padding-right: 1rem;
-	max-height: 350px; /* Set your desired height */
+	margin-bottom: 1rem;
+	max-height: 70vh;
+	@media (max-width: 525px) {
+		max-height: 600px;
+		/* margin: 0; */
+	}
 	overflow-y: auto; /* Add vertical scrollbar if content exceeds container height */
 `

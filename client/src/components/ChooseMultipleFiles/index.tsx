@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
-import { Container, Form, Response } from './styled'
-import Button from '@components/Button'
+import {
+	Container,
+	Form,
+	Heading,
+	Icon,
+	Response,
+	styledButton as Button,
+} from './styled'
 import axios from 'axios'
 import { T16Bold } from '@styles/typo'
 import { uploadMultiplefiles, uploadSingleFile } from '@/api'
 import { useAuthSlice } from '@redux/hooks'
+import { IoCloudUploadSharp } from 'react-icons/io5'
 
 const ChooseMultipleFiles = () => {
 	const [files, setFiles] = useState<FileList | null>(null)
@@ -54,14 +61,16 @@ const ChooseMultipleFiles = () => {
 
 	return (
 		<Container>
+			<Icon>
+				<IoCloudUploadSharp />
+			</Icon>
+			<Heading>You can choose multiple files to upload</Heading>
 			<Form onSubmit={handleSubmit}>
-				<input type='file' name='file' onChange={handleFileChange} multiple />
-				<Button type='submit'>Submit</Button>
+				<input type='file' name='file' onChange={handleFileChange} />
+				<Button type='submit'>Upload</Button>
 			</Form>
 			<Response>
-				<Form>
-					<T16Bold>Text</T16Bold>
-				</Form>
+				<Form></Form>
 			</Response>
 		</Container>
 	)

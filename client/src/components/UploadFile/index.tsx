@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
-import { Container, Form, Response } from './styled'
-import Button from '@components/Button'
+import {
+	Container,
+	Form,
+	Response,
+	styledButton as Button,
+	Heading,
+	Icon,
+} from './styled'
 import axios from 'axios' // Don't forget to import axios
 import { T16Bold } from '@styles/typo'
 import { uploadSingleFile } from '@/api'
 import { useAuthSlice } from '@redux/hooks'
-
+import { UploadFileOutlined } from '@mui/icons-material'
+import { IoCloudUploadSharp } from 'react-icons/io5'
 const UploadFile = () => {
 	const [file, setFile] = useState<File | null>(null)
 	const userDetails = useAuthSlice(e => e.userData)
@@ -56,9 +63,13 @@ const UploadFile = () => {
 
 	return (
 		<Container>
+			<Icon>
+				<IoCloudUploadSharp />
+			</Icon>
+			<Heading>Choose File to Upload</Heading>
 			<Form onSubmit={handleSubmit}>
 				<input type='file' name='file' onChange={handleFileChange} />
-				<Button type='submit'>Submit</Button>
+				<Button type='submit'>Upload</Button>
 			</Form>
 			<Response>
 				<Form>

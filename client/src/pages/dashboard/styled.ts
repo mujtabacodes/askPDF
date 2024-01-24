@@ -44,6 +44,7 @@ export const WelcomeTitle = styled(T16Bold)`
 `
 
 export const StyledBox = styled.div`
+	padding-top: 2rem;
 	background: ${dashboardBG};
 	display: flex;
 	flex-direction: column;

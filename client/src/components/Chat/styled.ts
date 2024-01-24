@@ -2,6 +2,8 @@ import styled from '@emotion/styled'
 import { primaryColor } from '@styles/colors'
 
 export const Container = styled.div`
+	box-shadow: 0px 0px 15px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 1rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;

@@ -12,6 +12,7 @@ import { T16Bold } from '@styles/typo'
 import { uploadMultiplefiles, uploadSingleFile } from '@/api'
 import { useAuthSlice } from '@redux/hooks'
 import { IoCloudUploadSharp } from 'react-icons/io5'
+import Chat from '@components/Chat'
 
 const ChooseMultipleFiles = () => {
 	const [files, setFiles] = useState<FileList | null>(null)
@@ -20,8 +21,17 @@ const ChooseMultipleFiles = () => {
 		const selectedFiles = event.target.files
 
 		if (selectedFiles) {
-			// Check if the selected files are PDF or any validation
-			// You can iterate through the FileList if needed
+			for (let i = 0; i < selectedFiles.length; i++) {
+				if (selectedFiles[i].type !== 'application/pdf') {
+					console.error('Please select a PDF file.')
+					alert('Please select a PDF file.')
+					// Clear the input field
+					event.target.value = ''
+					setFiles(null)
+					return // Exit the loop if any file is not a PDF
+				}
+			}
+
 			setFiles(selectedFiles)
 		}
 	}
@@ -66,12 +76,10 @@ const ChooseMultipleFiles = () => {
 			</Icon>
 			<Heading>You can choose multiple files to upload</Heading>
 			<Form onSubmit={handleSubmit}>
-				<input type='file' name='file' onChange={handleFileChange} />
+				<input type='file' name='file' onChange={handleFileChange} multiple />
 				<Button type='submit'>Upload</Button>
 			</Form>
-			<Response>
-				<Form></Form>
-			</Response>
+			{/* <Response>{selectedFiles ? <Chat fileName={`${selectedFiles}`} /> : ''}</Response> */}
 		</Container>
 	)
 }

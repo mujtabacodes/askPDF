@@ -13,9 +13,11 @@ import { uploadSingleFile } from '@/api'
 import { useAuthSlice } from '@redux/hooks'
 import { UploadFileOutlined } from '@mui/icons-material'
 import { IoCloudUploadSharp } from 'react-icons/io5'
+import Chat from '@components/Chat'
 const UploadFile = () => {
 	const [file, setFile] = useState<File | null>(null)
 	const userDetails = useAuthSlice(e => e.userData)
+	const [uploadedFile, setuploadedFile] = useState(false)
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFile = event.target.files?.[0]
 		console.log(file)
@@ -53,6 +55,7 @@ const UploadFile = () => {
 			})
 			if (response.status === 200) {
 				alert('File upload successfully')
+				setuploadedFile(true)
 			} else {
 				console.error('Registration failed')
 			}
@@ -62,21 +65,22 @@ const UploadFile = () => {
 	}
 
 	return (
-		<Container>
-			<Icon>
-				<IoCloudUploadSharp />
-			</Icon>
-			<Heading>Choose File to Upload</Heading>
-			<Form onSubmit={handleSubmit}>
-				<input type='file' name='file' onChange={handleFileChange} />
-				<Button type='submit'>Upload</Button>
-			</Form>
-			<Response>
-				<Form>
-					<T16Bold>{`${file}`}</T16Bold>
-				</Form>
-			</Response>
-		</Container>
+		<React.Fragment>
+			{!uploadedFile ? (
+				<Container>
+					<Icon>
+						<IoCloudUploadSharp />
+					</Icon>
+					<Heading>Choose File to Upload</Heading>
+					<Form onSubmit={handleSubmit}>
+						<input type='file' name='file' onChange={handleFileChange} />
+						<Button type='submit'>Upload</Button>
+					</Form>
+				</Container>
+			) : (
+				<Chat fileName={file.name} />
+			)}
+		</React.Fragment>
 	)
 }
 

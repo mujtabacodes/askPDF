@@ -77,7 +77,7 @@ const ChooseOneFile = () => {
 							)}
 						</React.Fragment>
 					) : (
-						<p>No files available</p>
+						<p style={{ color: 'grey' }}>No files available</p>
 					)}
 				</div>
 			) : (

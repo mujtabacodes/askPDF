@@ -14,7 +14,7 @@ import userRoute from './routes/userRoutes'
 import uploadRoute from './routes/uploadRoutes'
 import getfilesRoute from './routes/getfilesRoutes'
 import chatRoute from './routes/chatRoutes'
-
+import stripeRoute from './routes/stripeRoute'
 const app = express()
 app.use(
 	cors({
@@ -38,6 +38,7 @@ app.use('/users', userRoute)
 app.use('/upload', uploadRoute)
 app.use('/get', getfilesRoute)
 app.use('/', chatRoute(io))
+app.use('/payment', stripeRoute)
 
 app.use(() => {
 	throw createHttpError(404, 'Route not found')

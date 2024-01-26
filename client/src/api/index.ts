@@ -5,3 +5,4 @@ export const uploadSingleFile = `${baseURL}/upload/singlefile`
 export const uploadMultiplefiles = `${baseURL}/upload/multiplefiles`
 export const getFilesAPI = `${baseURL}/get/files`
 export const chatAPI = `${baseURL}`
+export const PaymentAPI = `${baseURL}/payment`

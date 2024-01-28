@@ -1,6 +1,6 @@
 import { OpenAIEmbeddings } from '@langchain/openai'
 import { SupabaseVectorStore } from '@langchain/community/vectorstores/supabase'
-import { OPENAI_KEY, SUPABASE_API_KEY, SUPABASE_URL } from '../../config'
+import { OPENAI_KEY, SUPABASE_API_KEY, SUPABASE_URL } from '../config'
 import { createClient } from '@supabase/supabase-js'
 const embeddings = new OpenAIEmbeddings({ openAIApiKey: OPENAI_KEY })
 const client = createClient(SUPABASE_URL, SUPABASE_API_KEY)

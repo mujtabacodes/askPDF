@@ -1,9 +1,9 @@
 import { ChatOpenAI } from '@langchain/openai'
 import { PromptTemplate } from '@langchain/core/prompts'
-import { OPENAI_KEY } from '../../config'
+import { OPENAI_KEY } from '../config'
 import { retriever } from './retriever'
 import { StringOutputParser } from '@langchain/core/output_parsers'
-import { combineDocuments, formatConvHistory } from '../../common/funct'
+import { combineDocuments, formatConvHistory } from '../common/funct'
 import { RunnableSequence, RunnablePassthrough } from '@langchain/core/runnables'
 
 const llm = new ChatOpenAI({ openAIApiKey: OPENAI_KEY, temperature: 0 })

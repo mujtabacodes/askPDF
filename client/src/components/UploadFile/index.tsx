@@ -18,9 +18,9 @@ const UploadFile = () => {
 	const [file, setFile] = useState<File | null>(null)
 	const userDetails = useAuthSlice(e => e.userData)
 	const [uploadedFile, setuploadedFile] = useState(false)
+	const [fileName, setFileName] = useState('')
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFile = event.target.files?.[0]
-		console.log(file)
 		if (selectedFile) {
 			// Check if the selected file is a PDF
 			if (selectedFile.type === 'application/pdf') {
@@ -45,7 +45,6 @@ const UploadFile = () => {
 		try {
 			const formData = new FormData()
 			formData.append('file', file)
-			console.log(file)
 
 			const response = await axios.post(uploadSingleFile, formData, {
 				headers: {
@@ -53,11 +52,14 @@ const UploadFile = () => {
 					user_id: `${userDetails.user_id}`,
 				},
 			})
+
 			if (response.status === 200) {
 				alert('File upload successfully')
+				console.log(response)
+				setFileName(response.data.filename)
 				setuploadedFile(true)
 			} else {
-				console.error('Registration failed')
+				console.error('Upload file failed')
 			}
 		} catch (error) {
 			console.error('Error uploading file:', error)
@@ -78,7 +80,7 @@ const UploadFile = () => {
 					</Form>
 				</Container>
 			) : (
-				<Chat fileName={file.name} />
+				<Chat fileName={fileName} />
 			)}
 		</React.Fragment>
 	)

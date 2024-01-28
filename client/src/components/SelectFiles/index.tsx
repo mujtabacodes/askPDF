@@ -8,7 +8,7 @@ import Chat from '@components/Chat'
 interface IUserDetails {
 	user_id: string
 }
-const ChooseOneFile = () => {
+const SelectFiles = () => {
 	const [selectedOption, setSelectedOption] = useState('')
 	const [files, setFiles] = useState([])
 	const [fileUploaded, setFileUploaded] = useState(false)
@@ -90,4 +90,4 @@ const ChooseOneFile = () => {
 	)
 }
 
-export default ChooseOneFile
+export default SelectFiles

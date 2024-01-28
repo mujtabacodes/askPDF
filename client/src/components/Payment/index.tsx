@@ -1,11 +1,14 @@
 import { PaymentAPI } from '@/api'
-import Button from '@components/Button'
 import zIndex from '@mui/material/styles/zIndex'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StripeCheckout from 'react-stripe-checkout'
-
+import { Container, styleButton as Button } from './styled'
+import { LiaFileInvoiceDollarSolid } from 'react-icons/lia'
+import { FaUnlockAlt } from 'react-icons/fa'
+import { IoMdArrowRoundBack } from 'react-icons/io'
+import { HomeIcon } from '@pages/signin/styled'
 const Payment = () => {
 	const [product, setproduct] = useState({
 		name: 'React from FB',
@@ -41,17 +44,26 @@ const Payment = () => {
 		Navigate('/dashboard')
 	}
 	return (
-		<React.Fragment>
+		<Container>
+			<HomeIcon onClick={() => Navigate('/')}>
+				<IoMdArrowRoundBack />
+			</HomeIcon>
+			<Button onClick={handleAlreadyPaid}>
+				<LiaFileInvoiceDollarSolid /> Already Paid
+			</Button>
+
 			<StripeCheckout
 				stripeKey={import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY}
 				token={processPayment}
-				name='Buy ASK PDF'
+				name='ASK PDF'
 				amount={product.price * 100}
 			>
-				<Button>Pay with stripe</Button>
+				<Button primary>
+					<FaUnlockAlt />
+					Pay now
+				</Button>
 			</StripeCheckout>
-			<Button onClick={handleAlreadyPaid}>Already Paid</Button>
-		</React.Fragment>
+		</Container>
 	)
 }
 

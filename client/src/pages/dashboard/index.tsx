@@ -25,13 +25,13 @@ import SelectAllIcon from '@mui/icons-material/SelectAll'
 import LogoIMG from '@assets/images/logo-nobg.png'
 import MyAccount from '@components/MyAccount'
 import ChooseMultipleFiles from '@components/ChooseMultipleFiles'
-import ChooseOneFile from '@components/ChooseOneFile'
 import UploadFile from '@components/UploadFile'
 import { useNavigate } from 'react-router-dom'
 import { T16 } from '@styles/typo'
 import { useDispatch } from 'react-redux'
 import { setIsAuthenticated } from '@redux/slices/auth'
 import { useAuthSlice } from '@redux/hooks'
+import SelectFiles from '@components/SelectFiles'
 const drawerWidth = 240
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -106,7 +106,7 @@ export const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== 'o
 export default function Dashboard() {
 	const theme = useTheme()
 	const [open, setOpen] = React.useState(false)
-	const [selectedItem, setSelectedItem] = React.useState('Choose File')
+	const [selectedItem, setSelectedItem] = React.useState('Select Files')
 	const Navigate = useNavigate()
 	const dispatch = useDispatch()
 	const handleDrawerOpen = () => {
@@ -119,8 +119,8 @@ export default function Dashboard() {
 
 	const renderComponent = (selected: any) => {
 		switch (selected) {
-			case 'Choose File':
-				return <ChooseOneFile />
+			case 'Select Files':
+				return <SelectFiles />
 			case 'Upload File':
 				return <UploadFile />
 			case 'Choose Multiple files':
@@ -131,7 +131,7 @@ export default function Dashboard() {
 	}
 
 	const iconMap = {
-		'Choose File': <InboxIcon />,
+		'Select Files': <InboxIcon />,
 		'Upload File': <CloudUploadIcon />,
 		'Choose Multiple files': <SelectAllIcon />,
 	}
@@ -153,7 +153,7 @@ export default function Dashboard() {
 						<div>
 							{/* <Logo src={LogoIMG} /> */}
 
-							{['Choose File', 'Upload File', 'Choose Multiple files'].map(
+							{['Select Files', 'Upload File', 'Choose Multiple files'].map(
 								(text, index) => (
 									<ListItem key={text} disablePadding sx={{ display: 'block' }}>
 										<ListItemButton

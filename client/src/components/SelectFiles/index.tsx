@@ -65,7 +65,10 @@ const SelectFiles = () => {
 										value={fileName} // Use the file name as the value
 										onChange={handleOptionChange}
 									/>
-									<label htmlFor={`option${index}`} style={{ color: 'black' }}>
+									<label
+										htmlFor={`option${index}`}
+										style={{ color: 'black', cursor: 'pointer' }}
+									>
 										{ExtractFileName(fileName)}
 									</label>
 								</div>

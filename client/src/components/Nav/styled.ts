@@ -97,20 +97,17 @@ export const SideNav = styled.div<ISideNav>`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
-	justify-content: flex-end;
-
-	background-color: rgba(255, 255, 255, 0.1);
-
-	width: 100%;
-	height: 100%;
-
-	padding-right: 2rem;
+	background-color: white;
+	width: fit-content;
+	padding: 1rem 1rem;
 	border-radius: 1rem;
+	opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
+	transition: opacity 1s ease-in-out;
 
-	opacity: ${({ isOpen }) => (isOpen ? 1 : 0)}; /* Initially hide when not open */
-	transition: opacity 1s ease-in-out; /* Apply transition effect */
-
-	pointer-events: ${({ isOpen }) =>
-		isOpen ? 'auto' : 'none'}; /* Enable/disable pointer events */
+	pointer-events: ${({ isOpen }) => (isOpen ? 'auto' : 'none')};
 	z-index: ${({ isOpen }) => (isOpen ? 1 : -1)};
+`
+export const SideNavLink = styled.h2`
+	color: ${primaryColor};
+	border-bottom: 1px solid ${primaryColor};
 `

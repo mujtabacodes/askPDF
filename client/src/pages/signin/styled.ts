@@ -1,3 +1,4 @@
+import Button from '@components/Button'
 import styled from '@emotion/styled'
 import { primaryColor } from '@styles/colors'
 import { T18Bold } from '@styles/typo'
@@ -28,7 +29,9 @@ export const Content = styled.div`
 `
 
 export const LeftSide = styled.div`
+	position: relative;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
@@ -49,6 +52,8 @@ export const RightSide = styled(LeftSide)`
 		border-top-right-radius: 0rem;
 		border-bottom-right-radius: 2rem;
 		border-bottom-left-radius: 2rem;
+		height: fit-content;
+		padding: 2rem 0;
 	}
 `
 
@@ -70,5 +75,15 @@ export const Form = styled.form`
 	flex-direction: column;
 	gap: 1rem;
 	width: 100%;
-	padding: 2rem;
+	padding: 2rem 2rem 0.5rem 2rem;
+`
+export const SignInBTN = styled(Button)`
+	width: 100%;
+`
+export const HomeIcon = styled.h1`
+	position: absolute;
+	left: 0;
+	top: 0;
+	margin-left: 1rem;
+	cursor: pointer;
 `

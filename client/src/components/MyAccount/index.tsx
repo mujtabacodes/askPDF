@@ -88,11 +88,11 @@ export default function MyAccount({ drawerStatus }: IMyAccount) {
 					</ListItemIcon>
 					Settings
 				</MenuItem>
-				<MenuItem onClick={handleClose}>
+				<MenuItem onClick={handleClose} style={{ cursor: 'pointer' }}>
 					<ListItemIcon>
 						<Logout fontSize='small' />
 					</ListItemIcon>
-					Logout
+					Logout2
 				</MenuItem>
 			</Menu>
 		</Container>

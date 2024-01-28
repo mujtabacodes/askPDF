@@ -8,7 +8,7 @@ import { T14BoldSpaced } from '@styles/typo'
 export interface IButton extends IPos {
 	children: React.ReactNode
 	onClick?: () => void
-	white?: boolean
+	primary?: boolean
 	type?: 'submit'
 }
 

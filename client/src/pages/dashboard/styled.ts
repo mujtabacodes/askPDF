@@ -1,6 +1,8 @@
 import styled from '@emotion/styled'
+import { Box } from '@mui/material'
 import List from '@mui/material/List'
-import { drawerBG, navBG, primaryColor } from '@styles/colors'
+import { dashboardBG, drawerBG, navBG, primaryColor } from '@styles/colors'
+import { T16Bold, T48Bold } from '@styles/typo'
 export const DrawerToggle = styled.div`
 	display: flex;
 	justify-content: center;
@@ -29,4 +31,23 @@ export const Logo = styled.img`
 	padding: 1rem;
 	border-radius: 12rem;
 	height: 80px;
+`
+export const WelcomeTitle = styled(T16Bold)`
+	font-size: 2rem;
+	font-weight: 900;
+	color: ${primaryColor};
+	border-radius: 1rem;
+
+	@media (max-width: 375px) {
+		font-size: 1.3rem;
+	}
+`
+
+export const StyledBox = styled.div`
+	padding-top: 2rem;
+	background: ${dashboardBG};
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
 `

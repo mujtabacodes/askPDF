@@ -1,5 +1,15 @@
 import Textfield from '@components/Textfield'
-import { Container, Content, Form, Image, LeftSide, RightSide, Title } from './styled'
+import {
+	Container,
+	Content,
+	Form,
+	HomeIcon,
+	Image,
+	LeftSide,
+	RightSide,
+	SignInBTN,
+	Title,
+} from './styled'
 import Button from '@components/Button'
 import SiginIMG from '@assets/images/signin.png'
 import { useState } from 'react'
@@ -8,7 +18,11 @@ import { loginUser } from '@/api'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setIsAuthenticated, setUserData } from '@redux/slices/auth'
-
+import { Row } from '@styles/util'
+import { T14 } from '@styles/typo'
+import { FaHouseDamage } from 'react-icons/fa'
+import { HomeMiniRounded } from '@mui/icons-material'
+import { IoMdArrowRoundBack } from 'react-icons/io'
 const Sigin = () => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -52,6 +66,9 @@ const Sigin = () => {
 		<Container>
 			<Content>
 				<LeftSide>
+					<HomeIcon onClick={() => Navigate('/')}>
+						<IoMdArrowRoundBack />
+					</HomeIcon>
 					<Image src={SiginIMG} />
 				</LeftSide>
 				<RightSide>
@@ -71,8 +88,17 @@ const Sigin = () => {
 							setValue={setPassword}
 							required
 						/>
-						<Button>Submit</Button>
+						<SignInBTN primary>Submit</SignInBTN>
 					</Form>
+					<Row above={0} gap={10}>
+						<T14 style={{ color: 'black' }}>Don't have account?</T14>
+						<T14
+							style={{ color: 'blue', cursor: 'pointer' }}
+							onClick={() => Navigate('/register')}
+						>
+							Register
+						</T14>
+					</Row>
 				</RightSide>
 			</Content>
 		</Container>

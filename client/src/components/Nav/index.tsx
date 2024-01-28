@@ -7,6 +7,7 @@ import {
 	MobileMenu,
 	MobileMenuIcon,
 	SideNav,
+	SideNavLink,
 	SignInbtn,
 	Tab,
 } from './styled'
@@ -48,8 +49,14 @@ const Nav = () => {
 					</div>
 					{isOpen ? (
 						<SideNav isOpen={isOpen}>
-							<h2 style={{ color: `${primaryColor}` }}>About</h2>
-							<h2 style={{ color: `${primaryColor}` }}>Faq</h2>
+							<SideNavLink>About</SideNavLink>
+							<SideNavLink>Faq</SideNavLink>
+							<Button primary white onClick={() => Navigate('/signin')}>
+								<Row gap={4} align='center'>
+									SignIn
+									<IoIosArrowForward />
+								</Row>
+							</Button>
 						</SideNav>
 					) : (
 						''

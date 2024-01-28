@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
-import { lightSlateGray, vividCerulean } from '@styles/colors'
+import { lightSlateGray, primaryColor, vividCerulean } from '@styles/colors'
 import { withPos } from '@styles/util'
 
 interface IButton {
-	white?: boolean
+	primary?: boolean
 }
 
 export const Container = withPos(styled.button<IButton>`
@@ -11,12 +11,11 @@ export const Container = withPos(styled.button<IButton>`
 	align-items: center;
 	justify-content: center;
 
-	padding: 20px 30px;
-
+	padding: 1.3rem 2rem;
 	border-radius: 10rem;
 	border: none;
 
-	background-color: ${p => (p.white ? 'white' : vividCerulean)};
+	background-color: ${p => (p.primary ? primaryColor : 'rgba(100, 100, 100, 0.4)')};
 
 	cursor: pointer;
 
@@ -28,9 +27,6 @@ export const Container = withPos(styled.button<IButton>`
 		/* box-shadow: 0 10px 20px ${vividCerulean}33; // 0x33 = 20% opacity */
 	}
 
-	${p => (p.white ? `p{color: ${lightSlateGray}}` : 'white')}
-
-	:hover {
-		background: red !important;
-	}
+	/* ${p => (p.primary ? `p{color: ${lightSlateGray}}` : 'white')} */
+	color: ${p => (p.primary ? 'white' : `${lightSlateGray}`)};
 `)

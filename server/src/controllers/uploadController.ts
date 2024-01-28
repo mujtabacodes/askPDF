@@ -30,8 +30,7 @@ export const uploadSingleFile: RequestHandler = (req, res, next) => {
 				console.error('Multer error:', err)
 				return next(createHttpError(500, 'File upload failed'))
 			}
-
-			return res.status(200).json({ message: 'File uploaded successfully' })
+			return res.status(200).json({ filename: req.file?.filename })
 		})
 	} catch (error) {
 		console.error('Got an invalid error:', error)

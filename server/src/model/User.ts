@@ -6,6 +6,8 @@ export interface IUser extends Document {
 	name: string
 	email: string
 	password: string
+	stripeCustomerId?: string
+	paymentStatus?: 'unpaid' | 'paid'
 	comparePassword(candidatePassword: string): Promise<boolean>
 }
 
@@ -13,6 +15,8 @@ const userSchema: Schema = new Schema({
 	name: { type: String, required: true },
 	email: { type: String, required: true },
 	password: { type: String, required: true },
+	stripeCustomerId: { type: String, default: null },
+	paymentStatus: { type: String, enum: ['unpaid', 'paid'], default: 'unpaid' },
 })
 
 userSchema.methods.comparePassword = async function (

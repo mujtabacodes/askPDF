@@ -114,7 +114,7 @@ const Chat = (p: IChat) => {
 					onChange={event => setInput(event.target.value)}
 					value={input}
 				/>
-				<Button type='submit'>
+				<Button type='submit' primary>
 					<Send />
 				</Button>
 			</InputContainer>

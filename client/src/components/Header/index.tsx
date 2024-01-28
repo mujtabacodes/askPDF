@@ -19,7 +19,7 @@ const Header = () => {
 			</Description>
 			<Row gap={20}>
 				<NeonButton onClick={handleTryNow}>Try Now</NeonButton>
-				<Button>Show Video</Button>
+				<Button primary>Show Video</Button>
 			</Row>
 		</Container>
 	)

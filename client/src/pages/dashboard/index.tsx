@@ -18,20 +18,20 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
-import { drawerBG, navBG } from '@styles/colors'
-import { DrawerToggle, Logo, StyledList } from './styled'
+import { dashboardBG, drawerBG, navBG } from '@styles/colors'
+import { DrawerToggle, Logo, StyledBox, StyledList, WelcomeTitle } from './styled'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import SelectAllIcon from '@mui/icons-material/SelectAll'
 import LogoIMG from '@assets/images/logo-nobg.png'
 import MyAccount from '@components/MyAccount'
 import ChooseMultipleFiles from '@components/ChooseMultipleFiles'
-import ChooseOneFile from '@components/ChooseOneFile'
 import UploadFile from '@components/UploadFile'
 import { useNavigate } from 'react-router-dom'
 import { T16 } from '@styles/typo'
 import { useDispatch } from 'react-redux'
 import { setIsAuthenticated } from '@redux/slices/auth'
 import { useAuthSlice } from '@redux/hooks'
+import SelectFiles from '@components/SelectFiles'
 const drawerWidth = 240
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -106,7 +106,7 @@ export const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== 'o
 export default function Dashboard() {
 	const theme = useTheme()
 	const [open, setOpen] = React.useState(false)
-	const [selectedItem, setSelectedItem] = React.useState('Choose File')
+	const [selectedItem, setSelectedItem] = React.useState('Select Files')
 	const Navigate = useNavigate()
 	const dispatch = useDispatch()
 	const handleDrawerOpen = () => {
@@ -119,8 +119,8 @@ export default function Dashboard() {
 
 	const renderComponent = (selected: any) => {
 		switch (selected) {
-			case 'Choose File':
-				return <ChooseOneFile />
+			case 'Select Files':
+				return <SelectFiles />
 			case 'Upload File':
 				return <UploadFile />
 			case 'Choose Multiple files':
@@ -131,7 +131,7 @@ export default function Dashboard() {
 	}
 
 	const iconMap = {
-		'Choose File': <InboxIcon />,
+		'Select Files': <InboxIcon />,
 		'Upload File': <CloudUploadIcon />,
 		'Choose Multiple files': <SelectAllIcon />,
 	}
@@ -142,80 +142,86 @@ export default function Dashboard() {
 		Navigate('/')
 		dispatch(setIsAuthenticated(false))
 	}
-	const username = sessionStorage.getItem('user_name')
 	const userDetails = useAuthSlice(e => e.userData)
 	return (
-		<Box sx={{ display: 'flex' }}>
-			<CssBaseline />
+		<>
+			<Box sx={{ display: 'flex' }}>
+				<Drawer variant='permanent' open={open} style={{ background: `${drawerBG}` }}>
+					<Divider style={{ background: `${drawerBG}` }} />
 
-			<Drawer variant='permanent' open={open} style={{ background: `${drawerBG}` }}>
-				<Divider style={{ background: `${drawerBG}` }} />
+					<StyledList>
+						<div>
+							{/* <Logo src={LogoIMG} /> */}
 
-				<StyledList>
-					<div>
-						{/* <Logo src={LogoIMG} /> */}
-
-						{['Choose File', 'Upload File', 'Choose Multiple files'].map(
-							(text, index) => (
-								<ListItem key={text} disablePadding sx={{ display: 'block' }}>
-									<ListItemButton
-										onClick={() => handleListItemClick(text)}
-										sx={{
-											minHeight: 48,
-											justifyContent: open ? 'initial' : 'center',
-											px: 2.5,
-										}}
-									>
-										<ListItemIcon
+							{['Select Files', 'Upload File', 'Choose Multiple files'].map(
+								(text, index) => (
+									<ListItem key={text} disablePadding sx={{ display: 'block' }}>
+										<ListItemButton
+											onClick={() => handleListItemClick(text)}
 											sx={{
-												minWidth: 0,
-												mr: open ? 3 : 'auto',
-												justifyContent: 'center',
+												minHeight: 48,
+												justifyContent: open ? 'initial' : 'center',
+												px: 2.5,
 											}}
 										>
-											{iconMap[text]}
-										</ListItemIcon>
-										<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-									</ListItemButton>
-								</ListItem>
-							),
-						)}
-						<Divider />
-					</div>
-					{/* <MyAccount drawerStatus={open} /> */}
-					<T16 onClick={handleLogout}>Logout</T16>
-				</StyledList>
-			</Drawer>
-			<DrawerToggle>
-				{!open ? (
-					<IconButton
-						aria-label='open drawer'
-						onClick={handleDrawerOpen}
-						edge='start'
-						sx={{
-							marginRight: 5,
-						}}
-					>
-						<ChevronRightIcon className='drawertoggle' />
-					</IconButton>
-				) : (
-					<IconButton
-						onClick={handleDrawerClose}
-						aria-label='open drawer'
-						edge='start'
-						sx={{
-							marginRight: 5,
-						}}
-					>
-						<ChevronLeftIcon className='drawertoggle' />
-					</IconButton>
-				)}
-			</DrawerToggle>
-			<Box component='main' sx={{ flexGrow: 1, p: 3 }}>
-				{/* <DrawerHeader /> */}
-				<h1 style={{ color: 'black' }}>Welcome {userDetails.name}</h1>
-				{selectedItem && renderComponent(selectedItem)}
+											<ListItemIcon
+												sx={{
+													minWidth: 0,
+													mr: open ? 3 : 'auto',
+													justifyContent: 'center',
+												}}
+											>
+												{iconMap[text]}
+											</ListItemIcon>
+											<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+										</ListItemButton>
+									</ListItem>
+								),
+							)}
+							<Divider />
+						</div>
+						{/* <MyAccount drawerStatus={open} /> */}
+						<T16 onClick={handleLogout} style={{ cursor: 'pointer' }}>
+							Logout
+						</T16>
+					</StyledList>
+				</Drawer>
+				<DrawerToggle style={{ background: `${dashboardBG}` }}>
+					{!open ? (
+						<IconButton
+							aria-label='open drawer'
+							onClick={handleDrawerOpen}
+							edge='start'
+							sx={{
+								marginRight: 0,
+								background: `${dashboardBG}`,
+							}}
+						>
+							<ChevronRightIcon className='drawertoggle' />
+						</IconButton>
+					) : (
+						<IconButton
+							onClick={handleDrawerClose}
+							aria-label='open drawer'
+							edge='start'
+							sx={{
+								marginRight: 0,
+								background: `${dashboardBG}`,
+							}}
+						>
+							<ChevronLeftIcon className='drawertoggle' />
+						</IconButton>
+					)}
+				</DrawerToggle>
 			</Box>
-		</Box>
+			<StyledBox>
+				{/* <DrawerHeader /> */}
+				<WelcomeTitle above={20} below={10}>
+					WELCOME
+					{` ${(userDetails?.name).toUpperCase()}`}
+				</WelcomeTitle>
+				{selectedItem && renderComponent(selectedItem)}
+			</StyledBox>
+		</>
 	)
 }

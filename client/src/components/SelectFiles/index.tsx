@@ -8,7 +8,7 @@ import Chat from '@components/Chat'
 interface IUserDetails {
 	user_id: string
 }
-const ChooseOneFile = () => {
+const SelectFiles = () => {
 	const [selectedOption, setSelectedOption] = useState('')
 	const [files, setFiles] = useState([])
 	const [fileUploaded, setFileUploaded] = useState(false)
@@ -52,37 +52,42 @@ const ChooseOneFile = () => {
 	}, [setFiles])
 	return (
 		<Container>
-			<div>
-				{files.length > 0 ? (
-					<React.Fragment>
-						{files.map((fileName, index) => (
-							<div key={index}>
-								<input
-									type='radio'
-									id={`option${index}`}
-									name='option'
-									value={fileName} // Use the file name as the value
-									onChange={handleOptionChange}
-								/>
-								<label htmlFor={`option${index}`}>{ExtractFileName(fileName)}</label>
-							</div>
-						))}
-						{selectedOption && (
-							<Button above={10} onClick={handleSubmit}>
-								Start Chat
-							</Button>
-						)}
-					</React.Fragment>
-				) : (
-					<p>No files available</p>
-				)}
-			</div>
-			<div>
-				{fileUploaded && <Chat fileName={selectedOption} />}
-				{/* <Chat /> */}
-			</div>
+			{!fileUploaded ? (
+				<div>
+					{files.length > 0 ? (
+						<React.Fragment>
+							{files.map((fileName, index) => (
+								<div key={index}>
+									<input
+										type='radio'
+										id={`option${index}`}
+										name='option'
+										value={fileName} // Use the file name as the value
+										onChange={handleOptionChange}
+									/>
+									<label htmlFor={`option${index}`} style={{ color: 'black' }}>
+										{ExtractFileName(fileName)}
+									</label>
+								</div>
+							))}
+							{selectedOption && (
+								<Button above={10} primary onClick={handleSubmit}>
+									Start Chat
+								</Button>
+							)}
+						</React.Fragment>
+					) : (
+						<p style={{ color: 'grey' }}>No files available</p>
+					)}
+				</div>
+			) : (
+				<div>
+					<Chat fileName={selectedOption} />
+					{/* <Chat /> */}
+				</div>
+			)}
 		</Container>
 	)
 }
 
-export default ChooseOneFile
+export default SelectFiles

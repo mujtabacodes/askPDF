@@ -9,13 +9,15 @@ import {
 } from './styled'
 import axios from 'axios'
 import { T16Bold } from '@styles/typo'
-import { uploadMultiplefiles, uploadSingleFile } from '@/api'
+import { uploadMultiplefiles } from '@/api'
 import { useAuthSlice } from '@redux/hooks'
 import { IoCloudUploadSharp } from 'react-icons/io5'
 import Chat from '@components/Chat'
 
 const ChooseMultipleFiles = () => {
+	const [uploadedFile, setUploadedFile] = useState(false)
 	const [files, setFiles] = useState<FileList | null>(null)
+	const [filesList, setFilesList] = useState<string[]>([])
 	const userDetails = useAuthSlice(e => e.userData)
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFiles = event.target.files
@@ -60,7 +62,8 @@ const ChooseMultipleFiles = () => {
 
 			if (response.status === 200) {
 				alert('File uploaded successfully')
-				setFiles(null)
+				setFilesList(response.data.files_list)
+				setUploadedFile(true)
 			} else {
 				console.error('File upload failed')
 			}
@@ -70,17 +73,23 @@ const ChooseMultipleFiles = () => {
 	}
 
 	return (
-		<Container>
-			<Icon>
-				<IoCloudUploadSharp />
-			</Icon>
-			<Heading>You can choose multiple files to upload</Heading>
-			<Form onSubmit={handleSubmit}>
-				<input type='file' name='file' onChange={handleFileChange} multiple />
-				<Button type='submit'>Upload</Button>
-			</Form>
-			{/* <Response>{selectedFiles ? <Chat fileName={`${selectedFiles}`} /> : ''}</Response> */}
-		</Container>
+		<React.Fragment>
+			{!uploadedFile ? (
+				<Container>
+					<Icon>
+						<IoCloudUploadSharp />
+					</Icon>
+					<Heading>You can choose multiple files to upload</Heading>
+					<Form onSubmit={handleSubmit}>
+						<input type='file' name='file' onChange={handleFileChange} multiple />
+						<Button type='submit'>Upload</Button>
+					</Form>
+					{/* <Response>{selectedFiles ? <Chat fileName={`${selectedFiles}`} /> : ''}</Response> */}
+				</Container>
+			) : (
+				<Chat fileNames={filesList} />
+			)}
+		</React.Fragment>
 	)
 }
 

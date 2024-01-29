@@ -12,43 +12,50 @@ const ExtractFileName = (fileName: string) => {
 	return cleanedFileName
 }
 
-const processPDF = async (userId: string, fileName: string) => {
-	const filePath = path.join(__dirname, '..', 'assets', 'uploads', userId, fileName)
+const processPDF = async (userId: string, fileNames: string[]) => {
+	const filePaths = fileNames.map(fileName =>
+		path.join(__dirname, '..', 'assets', 'uploads', userId, fileName),
+	)
 
-	// Read PDF file
-	const dataBuffer = fs.readFileSync(filePath)
-	const data = await pdfParse(dataBuffer)
+	// Read PDF files
+	const pdfTexts = await Promise.all(
+		filePaths.map(filePath => pdfParse(fs.readFileSync(filePath))),
+	)
 
-	// Extracted text content
-	const pdfText = data.text
+	// Extracted text content from each PDF
+	const pdfTextArray = pdfTexts.map(data => data.text)
 
 	// Generate a question for ChatGPT based on the PDF content
-	const chatGPTResponse = await ChatGPT(pdfText)
-	// console.log('We are at chatController')
-	console.log(chatGPTResponse)
-	return chatGPTResponse
+	const chatGPTResponses = await Promise.all(
+		pdfTextArray.map(pdfText => /*ChatGPT(pdfText)*/ console.log(pdfText)),
+	)
+	// const chatGPTResponse = await ChatGPT(pdfTextArray)
+	console.log(pdfTextArray)
+	// return
+	return 'send to code splitter'
+	//   return chatGPTResponses;
 }
 
 export const startChat = (io: SocketIOServer) => (socket: Socket) => {
 	console.log('user connected :' + socket.id)
 	socket.emit('server_response', { type: 'bot', message: 'Welcome to AskPDF!' })
-	let fileName = null
+	let fileNames = []
 	let userId = null
-	let chatGPTResponse = null
+	let chatGPTResponses = null
 
-	socket.on('file_send', async data => {
-		fileName = data.file
+	socket.on('files_send', async data => {
+		fileNames = data.files
 		userId = data.user_id
 
-		const query = `Your file "${ExtractFileName(
-			data.file,
-		)}" is received. Now you can chat!!`
-		console.log('user-id is' + userId + ' and file name is' + fileName)
+		const query = `Your files are received. Now you can chat!!`
+		console.log('filesNames')
+		console.log(fileNames)
+		console.log('user-id is ' + userId + ' and file names are ' + fileNames.join(', '))
 		socket.emit('server_response', { type: 'bot', message: query })
 
-		// Process the PDF and initiate conversation with ChatGPT
-		chatGPTResponse = await processPDF(userId, fileName)
-		socket.emit('server_response', { type: 'bot', message: chatGPTResponse })
+		// Process the PDFs and initiate conversation with ChatGPT
+		chatGPTResponses = await processPDF(userId, fileNames)
+		socket.emit('server_response', { type: 'bot', message: chatGPTResponses })
 	})
 
 	socket.on('send_message', async data => {
@@ -56,8 +63,8 @@ export const startChat = (io: SocketIOServer) => (socket: Socket) => {
 		const res = await Standalone(data.message)
 
 		// Continue the conversation with ChatGPT based on user's message
-		// chatGPTResponse = await ChatGPT(data.message)
-		chatGPTResponse = 'ChatGPT response is cooking....'
+		// chatGPTResponses = await ChatGPT(data.message);
+		chatGPTResponses = ['ChatGPT response is cooking....'] // Adjust as needed
 		socket.emit('server_response', { type: 'bot', message: res })
 	})
 }

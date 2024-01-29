@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import io from 'socket.io-client'
 
 import {
@@ -22,26 +22,29 @@ import { chatAPI } from '@/api'
 import { useAuthSlice } from '@redux/hooks'
 
 interface IChat {
-	fileName: string
+	fileNames: string[]
 }
 
 const Chat = (p: IChat) => {
-	const { fileName } = p
+	const { fileNames } = p
 	const [messages, setMessages] = useState([])
 	const [input, setInput] = useState('')
 	const chatContainerRef = useRef(null)
 
 	const socket = io(chatAPI)
 	const userDetails = useAuthSlice(e => e.userData)
+
 	useEffect(() => {
 		socket.on('connect', () => {
 			console.log('Socket Connected!!!')
 		})
-		socket.emit('file_send', {
+
+		socket.emit('files_send', {
 			type: 'bot',
-			file: fileName,
+			files: fileNames,
 			user_id: userDetails?.user_id,
 		})
+
 		socket.on('server_response', data => {
 			console.log('Server_response')
 			console.log(data)
@@ -50,6 +53,7 @@ const Chat = (p: IChat) => {
 				{ type: data.type, message: data.message },
 			])
 		})
+
 		scrollToBottom()
 	}, [])
 
@@ -68,6 +72,7 @@ const Chat = (p: IChat) => {
 			setMessages([...messages, { type: data.type, message: data.message }])
 		})
 		scrollToBottom()
+
 		socket.on('server_response', data => {
 			console.log('Server_response')
 			setMessages(prevMessages => [
@@ -77,6 +82,7 @@ const Chat = (p: IChat) => {
 		})
 		scrollToBottom()
 	}
+
 	const scrollToBottom = () => {
 		if (chatContainerRef.current) {
 			chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
@@ -84,6 +90,7 @@ const Chat = (p: IChat) => {
 			console.log(chatContainerRef.current)
 		}
 	}
+
 	return (
 		<Container>
 			<ChatContainer ref={chatContainerRef}>

@@ -7,28 +7,28 @@ import {
 	Heading,
 	Icon,
 } from './styled'
-import axios from 'axios' // Don't forget to import axios
+import axios from 'axios'
 import { T16Bold } from '@styles/typo'
 import { uploadSingleFile } from '@/api'
 import { useAuthSlice } from '@redux/hooks'
 import { UploadFileOutlined } from '@mui/icons-material'
 import { IoCloudUploadSharp } from 'react-icons/io5'
 import Chat from '@components/Chat'
+
 const UploadFile = () => {
 	const [file, setFile] = useState<File | null>(null)
 	const userDetails = useAuthSlice(e => e.userData)
-	const [uploadedFile, setuploadedFile] = useState(false)
+	const [uploadedFile, setUploadedFile] = useState(false)
 	const [fileName, setFileName] = useState('')
+
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFile = event.target.files?.[0]
 		if (selectedFile) {
-			// Check if the selected file is a PDF
 			if (selectedFile.type === 'application/pdf') {
 				setFile(selectedFile)
 			} else {
 				console.error('Please select a PDF file.')
 				alert('Please select a PDF file.')
-				// Clear the input field
 				event.target.value = ''
 				setFile(null)
 			}
@@ -57,7 +57,7 @@ const UploadFile = () => {
 				alert('File upload successfully')
 				console.log(response)
 				setFileName(response.data.filename)
-				setuploadedFile(true)
+				setUploadedFile(true)
 			} else {
 				console.error('Upload file failed')
 			}
@@ -80,7 +80,7 @@ const UploadFile = () => {
 					</Form>
 				</Container>
 			) : (
-				<Chat fileName={fileName} />
+				<Chat fileNames={[fileName]} />
 			)}
 		</React.Fragment>
 	)

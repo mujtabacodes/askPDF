@@ -5,19 +5,31 @@ import axios from 'axios'
 import { getFilesAPI } from '@/api'
 import { useAuthSlice } from '@redux/hooks'
 import Chat from '@components/Chat'
+
 interface IUserDetails {
 	user_id: string
 }
+
 const SelectFiles = () => {
-	const [selectedOption, setSelectedOption] = useState('')
-	const [files, setFiles] = useState([])
+	const [selectedOptions, setSelectedOptions] = useState<string[]>([])
+	const [files, setFiles] = useState<string[]>([])
 	const [fileUploaded, setFileUploaded] = useState(false)
 	const userDetails = useAuthSlice(e => e.userData)
+
 	const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSelectedOption(event.target.value)
+		const fileName = event.target.value
+
+		// Update selected options based on checkbox state
+		if (event.target.checked) {
+			setSelectedOptions(prevSelectedOptions => [...prevSelectedOptions, fileName])
+		} else {
+			setSelectedOptions(prevSelectedOptions =>
+				prevSelectedOptions.filter(option => option !== fileName),
+			)
+		}
 	}
+
 	const handleSubmit = () => {
-		// alert(selectedOption)
 		setFileUploaded(true)
 	}
 
@@ -26,12 +38,11 @@ const SelectFiles = () => {
 		try {
 			axios
 				.get(getFilesAPI, {
-					params: { userId }, // Set userId as a parameter object
+					params: { userId },
 				})
 				.then(response => {
-					// Handle the response here, for example:
 					console.log('Files retrieved:', response.data)
-					setFiles(response.data.files) // Assuming the response contains the files data
+					setFiles(response.data.files)
 				})
 				.catch(error => {
 					console.error('Error retrieving files:', error)
@@ -49,20 +60,21 @@ const SelectFiles = () => {
 
 	useEffect(() => {
 		getFiles()
-	}, [setFiles])
+	}, [])
+
 	return (
 		<Container>
 			{!fileUploaded ? (
 				<div>
 					{files.length > 0 ? (
-						<React.Fragment>
+						<>
 							{files.map((fileName, index) => (
 								<div key={index}>
 									<input
-										type='radio'
+										type='checkbox'
 										id={`option${index}`}
 										name='option'
-										value={fileName} // Use the file name as the value
+										value={fileName}
 										onChange={handleOptionChange}
 									/>
 									<label
@@ -73,20 +85,19 @@ const SelectFiles = () => {
 									</label>
 								</div>
 							))}
-							{selectedOption && (
+							{selectedOptions.length > 0 && (
 								<Button above={10} primary onClick={handleSubmit}>
 									Start Chat
 								</Button>
 							)}
-						</React.Fragment>
+						</>
 					) : (
 						<p style={{ color: 'grey' }}>No files available</p>
 					)}
 				</div>
 			) : (
 				<div>
-					<Chat fileName={selectedOption} />
-					{/* <Chat /> */}
+					<Chat fileNames={selectedOptions} />
 				</div>
 			)}
 		</Container>

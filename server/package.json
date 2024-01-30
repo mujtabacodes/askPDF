@@ -29,6 +29,7 @@
 	"dependencies": {
 		"@langchain/openai": "^0.0.12",
 		"@supabase/supabase-js": "^2.39.3",
+		"@vercel/node": "^3.0.17",
 		"axios": "^1.6.5",
 		"bcrypt": "^5.1.1",
 		"cors": "^2.8.5",

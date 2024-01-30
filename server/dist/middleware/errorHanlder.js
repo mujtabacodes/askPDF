@@ -11,3 +11,4 @@ const errorHandler = (err, req, res, next) => {
         .json({ message: err.message || "An Unknown Error" });
 };
 exports.errorHandler = errorHandler;
+//# sourceMappingURL=errorHanlder.js.map

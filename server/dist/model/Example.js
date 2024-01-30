@@ -6,3 +6,4 @@ const ExampleSchema = new mongoose_1.Schema({
     id: { type: String },
 });
 exports.default = (0, mongoose_1.model)("Example", ExampleSchema);
+//# sourceMappingURL=Example.js.map

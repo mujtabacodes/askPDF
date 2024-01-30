@@ -18,3 +18,4 @@ const formatConvHistory = (messages) => {
         .join('\n');
 };
 exports.formatConvHistory = formatConvHistory;
+//# sourceMappingURL=funct.js.map

@@ -7,3 +7,4 @@ router.post('/', stripeController_1.postCustomer);
 router.get('/status', stripeController_1.checkPaymentStatus);
 // router.post("/", getExampleDataValidation, getExampleData);
 exports.default = router;
+//# sourceMappingURL=stripeRoute.js.map

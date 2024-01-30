@@ -1,13 +1,12 @@
 {
 	"name": "ask-pdf",
 	"version": "1.0.0",
-	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
 		"build": "rimraf dist && tsc",
 		"start": "nodemon src/index.ts",
 		"watch": "tsc -w",
-		"start2": "nodemon ./dist/app.js",
+		"start2": "nodemon ./dist/index.js",
 		"dev": "npm-run-all --parallel watch start2"
 	},
 	"devDependencies": {

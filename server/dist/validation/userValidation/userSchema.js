@@ -12,3 +12,4 @@ exports.userSchema = {
         password: joi_1.default.string().required(),
     }),
 };
+//# sourceMappingURL=userSchema.js.map

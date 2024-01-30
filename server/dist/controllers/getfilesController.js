@@ -28,3 +28,4 @@ const getAllFiles = (req, res, next) => {
     }
 };
 exports.getAllFiles = getAllFiles;
+//# sourceMappingURL=getfilesController.js.map

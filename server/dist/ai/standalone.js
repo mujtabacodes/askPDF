@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Standalone = void 0;
 const openai_1 = require("@langchain/openai");
@@ -9,7 +18,7 @@ const output_parsers_1 = require("@langchain/core/output_parsers");
 const funct_1 = require("../common/funct");
 const runnables_1 = require("@langchain/core/runnables");
 const llm = new openai_1.ChatOpenAI({ openAIApiKey: config_1.OPENAI_KEY, temperature: 0 });
-const Standalone = async (userQuestion) => {
+const Standalone = (userQuestion) => __awaiter(void 0, void 0, void 0, function* () {
     const convHistory = [];
     const standaloneTemplate = `Given some conversation history (if any) and a question, convert the question to a standalone question.
 	conversation history:{conv_history}
@@ -47,7 +56,7 @@ const Standalone = async (userQuestion) => {
         },
         answerChain,
     ]);
-    const response = await chain.invoke({
+    const response = yield chain.invoke({
         question: userQuestion,
         conv_history: (0, funct_1.formatConvHistory)(convHistory),
     });
@@ -57,5 +66,6 @@ const Standalone = async (userQuestion) => {
     console.log('Conversational History');
     console.log((0, funct_1.formatConvHistory)(convHistory));
     return response;
-};
+});
 exports.Standalone = Standalone;
+//# sourceMappingURL=standalone.js.map

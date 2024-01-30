@@ -52,3 +52,4 @@ mongoose_1.default
     .catch(() => {
     throw (0, http_errors_1.default)(501, 'Unable to connect to the database');
 });
+//# sourceMappingURL=index.js.map

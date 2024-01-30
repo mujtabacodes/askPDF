@@ -10,3 +10,4 @@ router.delete('/', userController_1.deleteAllUsers);
 router.delete('/:id', userController_1.deleteUser);
 router.get('/auth/', userController_1.checkUser);
 exports.default = router;
+//# sourceMappingURL=userRoutes.js.map

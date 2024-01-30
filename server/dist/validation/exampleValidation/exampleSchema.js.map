@@ -1,0 +1,1 @@
+{"version":3,"file":"exampleSchema.js","sourceRoot":"","sources":["../../../src/validation/exampleValidation/exampleSchema.ts"],"names":[],"mappings":";;;;;;AAAA,8CAAsB,CAAC,2EAA2E;AAErF,QAAA,aAAa,GAAG;IAC3B,cAAc,EAAE,aAAG,CAAC,MAAM,CAAC;QACzB,IAAI,EAAE,aAAG,CAAC,MAAM,EAAE,CAAC,QAAQ,EAAE;QAC7B,EAAE,EAAE,aAAG,CAAC,MAAM,EAAE,CAAC,QAAQ,EAAE;KAC5B,CAAC;CACH,CAAC"}

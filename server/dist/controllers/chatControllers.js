@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -36,27 +45,27 @@ const ExtractFileName = (fileName) => {
     console.log(cleanedFileName);
     return cleanedFileName;
 };
-const processPDF = async (userId, fileNames) => {
+const processPDF = (userId, fileNames) => __awaiter(void 0, void 0, void 0, function* () {
     const filePaths = fileNames.map(fileName => path.join(__dirname, '..', 'assets', 'uploads', userId, fileName));
     // Read PDF files
-    const pdfTexts = await Promise.all(filePaths.map(filePath => (0, pdf_parse_1.default)(fs.readFileSync(filePath))));
+    const pdfTexts = yield Promise.all(filePaths.map(filePath => (0, pdf_parse_1.default)(fs.readFileSync(filePath))));
     // Extracted text content from each PDF
     const pdfTextArray = pdfTexts.map(data => data.text);
     // Generate a question for ChatGPT based on the PDF content
-    const chatGPTResponses = await Promise.all(pdfTextArray.map(pdfText => /*ChatGPT(pdfText)*/ console.log(pdfText)));
+    const chatGPTResponses = yield Promise.all(pdfTextArray.map(pdfText => /*ChatGPT(pdfText)*/ console.log(pdfText)));
     // const chatGPTResponse = await ChatGPT(pdfTextArray)
     console.log(pdfTextArray);
     // return
     return 'send to code splitter';
     //   return chatGPTResponses;
-};
+});
 const startChat = (io) => (socket) => {
     console.log('user connected :' + socket.id);
     socket.emit('server_response', { type: 'bot', message: 'Welcome to AskPDF!' });
     let fileNames = [];
     let userId = null;
     let chatGPTResponses = null;
-    socket.on('files_send', async (data) => {
+    socket.on('files_send', (data) => __awaiter(void 0, void 0, void 0, function* () {
         fileNames = data.files;
         userId = data.user_id;
         const query = `Your files are received. Now you can chat!!`;
@@ -65,16 +74,17 @@ const startChat = (io) => (socket) => {
         console.log('user-id is ' + userId + ' and file names are ' + fileNames.join(', '));
         socket.emit('server_response', { type: 'bot', message: query });
         // Process the PDFs and initiate conversation with ChatGPT
-        chatGPTResponses = await processPDF(userId, fileNames);
+        chatGPTResponses = yield processPDF(userId, fileNames);
         socket.emit('server_response', { type: 'bot', message: chatGPTResponses });
-    });
-    socket.on('send_message', async (data) => {
+    }));
+    socket.on('send_message', (data) => __awaiter(void 0, void 0, void 0, function* () {
         socket.emit('user_message', { type: 'user', message: data.message });
-        const res = await (0, standalone_1.Standalone)(data.message);
+        const res = yield (0, standalone_1.Standalone)(data.message);
         // Continue the conversation with ChatGPT based on user's message
         // chatGPTResponses = await ChatGPT(data.message);
         chatGPTResponses = ['ChatGPT response is cooking....']; // Adjust as needed
         socket.emit('server_response', { type: 'bot', message: res });
-    });
+    }));
 };
 exports.startChat = startChat;
+//# sourceMappingURL=chatControllers.js.map

@@ -45,10 +45,13 @@ export const uploadMultiplefiles: RequestHandler = (req, res, next) => {
 				console.error('Multer error:', err)
 				return next(createHttpError(500, 'File upload failed'))
 			}
-			let files = []
-			req.files?.forEach(file => {
-				files.push(file.filename)
-			})
+			let files: string[] = []
+			if (req.files && Array.isArray(req.files)) {
+				// Asserting the type of req.files to be an array of Express.Multer.File
+				;(req.files as Express.Multer.File[]).forEach(file => {
+					files.push(file.filename)
+				})
+			}
 			// console.log(files)
 			return res.status(200).json({ files_list: files })
 		})

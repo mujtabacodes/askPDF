@@ -3,10 +3,10 @@ import { v4 as uuid } from 'uuid'
 import { FRONTEND_URL, STRIPE_SECRET_KEY } from '../config'
 import User, { IUser } from '../model/User'
 import createHttpError from 'http-errors'
-const stripe = require('stripe')(STRIPE_SECRET_KEY)
+// const stripe = require('stripe')(STRIPE_SECRET_KEY)
 
-// import Stripe from 'stripe'
-// const stripe = new Stripe(STRIPE_SECRET_KEY)
+import Stripe from 'stripe'
+const stripe = new Stripe(STRIPE_SECRET_KEY)
 export const postCustomer: RequestHandler = async (req, res, next) => {
 	try {
 		const { product, token } = JSON.parse(req.body.data)

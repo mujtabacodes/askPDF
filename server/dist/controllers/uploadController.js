@@ -26,12 +26,11 @@ const upload = (0, multer_1.default)({ storage });
 const uploadSingleFile = (req, res, next) => {
     try {
         upload.single('file')(req, res, err => {
-            var _a;
             if (err) {
                 console.error('Multer error:', err);
                 return next((0, http_errors_1.default)(500, 'File upload failed'));
             }
-            return res.status(200).json({ filename: (_a = req.file) === null || _a === void 0 ? void 0 : _a.filename });
+            return res.status(200).json({ filename: req.file?.filename });
         });
     }
     catch (error) {

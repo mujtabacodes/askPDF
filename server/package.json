@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"scripts": {
+		"ts.check": "tsc",
 		"build": "rimraf dist && tsc",
 		"start": "nodemon src/index.ts",
 		"watch": "tsc -w",

@@ -12,9 +12,9 @@ const storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
         const userId = req.headers['user_id'];
         const uploadPath = path_1.default.join(__dirname, '..', 'assets', 'uploads', `${userId}`);
-        if (!fs_1.default.existsSync(uploadPath)) {
-            fs_1.default.mkdirSync(uploadPath, { recursive: true });
-        }
+        // if (!fs.existsSync(uploadPath)) {
+        fs_1.default.mkdirSync(uploadPath, { recursive: true });
+        // }
         cb(null, uploadPath);
     },
     filename: function (req, file, cb) {

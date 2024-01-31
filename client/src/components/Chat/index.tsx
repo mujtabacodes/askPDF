@@ -24,15 +24,18 @@ import { useAuthSlice } from '@redux/hooks'
 interface IChat {
 	fileNames: string[]
 }
+interface IUserDetails {
+	user_id: string
+}
 
 const Chat = (p: IChat) => {
 	const { fileNames } = p
-	const [messages, setMessages] = useState([])
+	const [messages, setMessages] = useState<{ type: string; message: string }[]>([])
 	const [input, setInput] = useState('')
-	const chatContainerRef = useRef(null)
+	const chatContainerRef = useRef<HTMLDivElement | null>(null)
 
 	const socket = io(chatAPI)
-	const userDetails = useAuthSlice(e => e.userData)
+	const userDetails = useAuthSlice(e => e.userData) as IUserDetails
 
 	useEffect(() => {
 		socket.on('connect', () => {
@@ -42,7 +45,7 @@ const Chat = (p: IChat) => {
 		socket.emit('files_send', {
 			type: 'bot',
 			files: fileNames,
-			user_id: userDetails?.user_id,
+			user_id: userDetails.user_id,
 		})
 
 		socket.on('server_response', data => {

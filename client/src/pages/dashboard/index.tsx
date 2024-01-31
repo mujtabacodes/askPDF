@@ -67,6 +67,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 interface AppBarProps extends MuiAppBarProps {
 	open?: boolean
 }
+interface IUserDetails {
+	name: string
+}
 
 const AppBar = styled(MuiAppBar, {
 	shouldForwardProp: prop => prop !== 'open',
@@ -102,7 +105,9 @@ export const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== 'o
 		}),
 	}),
 )
-
+type IconMapType = {
+	[key in 'Select Files' | 'Upload File' | 'Choose Multiple files']: React.ReactElement // Index signature for arbitrary string keys
+}
 export default function Dashboard() {
 	const theme = useTheme()
 	const [open, setOpen] = React.useState(false)
@@ -130,7 +135,7 @@ export default function Dashboard() {
 		}
 	}
 
-	const iconMap = {
+	const iconMap: IconMapType = {
 		'Select Files': <InboxIcon />,
 		'Upload File': <CloudUploadIcon />,
 		'Choose Multiple files': <SelectAllIcon />,
@@ -142,7 +147,7 @@ export default function Dashboard() {
 		Navigate('/')
 		dispatch(setIsAuthenticated(false))
 	}
-	const userDetails = useAuthSlice(e => e.userData)
+	const userDetails = useAuthSlice(e => e.userData) as IUserDetails
 	return (
 		<>
 			<Box sx={{ display: 'flex' }}>
@@ -171,7 +176,8 @@ export default function Dashboard() {
 													justifyContent: 'center',
 												}}
 											>
-												{iconMap[text]}
+												{/* {iconMap[text ]} */}
+												{iconMap[text as keyof IconMapType]}
 											</ListItemIcon>
 											<ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
 										</ListItemButton>

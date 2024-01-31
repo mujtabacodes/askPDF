@@ -2,6 +2,7 @@
 	"name": "ask-pdf",
 	"version": "1.0.0",
 	"license": "MIT",
+	"main": "index.js",
 	"scripts": {
 		"ts.check": "tsc",
 		"build": "rimraf dist && tsc",
@@ -48,10 +49,5 @@
 		"socket.io": "^4.7.3",
 		"stripe": "^14.14.0",
 		"uuid": "^9.0.1"
-	},
-	"pre-commit": [
-		"ts.check",
-		"build",
-		"add-build"
-	]
+	}
 }

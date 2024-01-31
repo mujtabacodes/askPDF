@@ -15,8 +15,6 @@
     "installation": "concurrently \"cd client && yarn\" \"cd server && yarn\""
   },
   "dependencies": {
-    "concurrently": "^7.0.0",
-    "stripe": "^14.14.0",
-    "uuid": "^9.0.1"
+    "concurrently": "^7.0.0"
   }
 }

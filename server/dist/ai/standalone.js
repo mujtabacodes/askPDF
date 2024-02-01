@@ -59,3 +59,4 @@ const Standalone = async (userQuestion) => {
     return response;
 };
 exports.Standalone = Standalone;
+//# sourceMappingURL=standalone.js.map

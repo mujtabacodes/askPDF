@@ -10,3 +10,4 @@ const getUserDataValidation = (req, res, next) => {
     (0, validator_1.default)(userSchema_1.userSchema.getUserData, req.body, next);
 };
 exports.getUserDataValidation = getUserDataValidation;
+//# sourceMappingURL=userValidation.js.map

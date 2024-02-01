@@ -75,3 +75,4 @@ const deleteUser = async (req, res, next) => {
     }
 };
 exports.deleteUser = deleteUser;
+//# sourceMappingURL=userController.js.map

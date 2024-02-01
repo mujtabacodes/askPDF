@@ -14,3 +14,4 @@ const vectorstore = new supabase_1.SupabaseVectorStore(embeddings, {
 });
 const retriever = vectorstore.asRetriever(); //it will go to vector store and match and return most close we can add number to get base on number of chunks
 exports.retriever = retriever;
+//# sourceMappingURL=retriever.js.map

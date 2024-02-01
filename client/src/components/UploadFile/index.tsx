@@ -15,9 +15,13 @@ import { UploadFileOutlined } from '@mui/icons-material'
 import { IoCloudUploadSharp } from 'react-icons/io5'
 import Chat from '@components/Chat'
 
+interface IUserDetails {
+	user_id: string
+}
+
 const UploadFile = () => {
 	const [file, setFile] = useState<File | null>(null)
-	const userDetails = useAuthSlice(e => e.userData)
+	const userDetails = useAuthSlice(e => e.userData) as IUserDetails
 	const [uploadedFile, setUploadedFile] = useState(false)
 	const [fileName, setFileName] = useState('')
 

@@ -12,9 +12,10 @@ const storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
         const userId = req.headers['user_id'];
         const uploadPath = path_1.default.join(__dirname, '..', 'assets', 'uploads', `${userId}`);
-        if (!fs_1.default.existsSync(uploadPath)) {
-            fs_1.default.mkdirSync(uploadPath, { recursive: true });
-        }
+        // if (!fs.existsSync(uploadPath)) {
+        console.log('uploadPath:', uploadPath);
+        fs_1.default.mkdirSync(uploadPath, { recursive: true });
+        // }
         cb(null, uploadPath);
     },
     filename: function (req, file, cb) {
@@ -47,9 +48,13 @@ const uploadMultiplefiles = (req, res, next) => {
                 return next((0, http_errors_1.default)(500, 'File upload failed'));
             }
             let files = [];
-            req.files?.forEach(file => {
-                files.push(file.filename);
-            });
+            if (req.files && Array.isArray(req.files)) {
+                // Asserting the type of req.files to be an array of Express.Multer.File
+                ;
+                req.files.forEach(file => {
+                    files.push(file.filename);
+                });
+            }
             // console.log(files)
             return res.status(200).json({ files_list: files });
         });
@@ -60,3 +65,4 @@ const uploadMultiplefiles = (req, res, next) => {
     }
 };
 exports.uploadMultiplefiles = uploadMultiplefiles;
+//# sourceMappingURL=uploadController.js.map

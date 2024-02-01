@@ -51,6 +51,7 @@ const Payment = () => {
 			<Button onClick={handleAlreadyPaid}>
 				<LiaFileInvoiceDollarSolid /> Already Paid
 			</Button>
+			{/* @ts-ignore */}
 
 			<StripeCheckout
 				stripeKey={import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY}

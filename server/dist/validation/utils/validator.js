@@ -16,3 +16,4 @@ const validator = async (schemaName, body, next) => {
     }
 };
 exports.default = validator;
+//# sourceMappingURL=validator.js.map

@@ -39,3 +39,4 @@ const ChatGPT = async (prompt) => {
     }
 };
 exports.ChatGPT = ChatGPT;
+//# sourceMappingURL=index.js.map

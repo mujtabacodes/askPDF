@@ -14,11 +14,15 @@ import { useAuthSlice } from '@redux/hooks'
 import { IoCloudUploadSharp } from 'react-icons/io5'
 import Chat from '@components/Chat'
 
+interface IUserDetails {
+	user_id: string
+}
+
 const ChooseMultipleFiles = () => {
 	const [uploadedFile, setUploadedFile] = useState(false)
 	const [files, setFiles] = useState<FileList | null>(null)
 	const [filesList, setFilesList] = useState<string[]>([])
-	const userDetails = useAuthSlice(e => e.userData)
+	const userDetails = useAuthSlice(e => e.userData) as IUserDetails
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFiles = event.target.files
 

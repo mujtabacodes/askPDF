@@ -8,3 +8,4 @@ const getfilesController_1 = require("../controllers/getfilesController");
 const router = express_1.default.Router();
 router.get('/files', getfilesController_1.getAllFiles);
 exports.default = router;
+//# sourceMappingURL=getfilesRoutes.js.map

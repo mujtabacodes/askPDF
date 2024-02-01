@@ -1,7 +1,16 @@
 import { RequestHandler } from 'express'
 import User from '../model/User'
 import createHttpError from 'http-errors'
+interface IUserData {
+	name: string
+	email: string
+	password: string
+}
 
+interface ILoginData {
+	email: string
+	password: string
+}
 export const getUsers: RequestHandler = async (req, res, next) => {
 	try {
 		const Users = await User.find({})

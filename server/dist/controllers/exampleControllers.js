@@ -25,3 +25,4 @@ const getExampleData = async (req, res, next) => {
     }
 };
 exports.getExampleData = getExampleData;
+//# sourceMappingURL=exampleControllers.js.map

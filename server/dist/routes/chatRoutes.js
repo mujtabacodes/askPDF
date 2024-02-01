@@ -12,3 +12,4 @@ const chatRoute = (io) => {
     return router;
 };
 exports.default = chatRoute;
+//# sourceMappingURL=chatRoutes.js.map

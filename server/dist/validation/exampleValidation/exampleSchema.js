@@ -11,3 +11,4 @@ exports.exampleSchema = {
         id: joi_1.default.number().required(),
     }),
 };
+//# sourceMappingURL=exampleSchema.js.map

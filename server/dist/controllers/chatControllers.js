@@ -78,3 +78,4 @@ const startChat = (io) => (socket) => {
     });
 };
 exports.startChat = startChat;
+//# sourceMappingURL=chatControllers.js.map

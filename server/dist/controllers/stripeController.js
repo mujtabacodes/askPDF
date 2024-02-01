@@ -8,9 +8,9 @@ const uuid_1 = require("uuid");
 const config_1 = require("../config");
 const User_1 = __importDefault(require("../model/User"));
 const http_errors_1 = __importDefault(require("http-errors"));
-const stripe = require('stripe')(config_1.STRIPE_SECRET_KEY);
-// import Stripe from 'stripe'
-// const stripe = new Stripe(STRIPE_SECRET_KEY)
+// const stripe = require('stripe')(STRIPE_SECRET_KEY)
+const stripe_1 = __importDefault(require("stripe"));
+const stripe = new stripe_1.default(config_1.STRIPE_SECRET_KEY);
 const postCustomer = async (req, res, next) => {
     try {
         const { product, token } = JSON.parse(req.body.data);
@@ -71,3 +71,4 @@ const checkPaymentStatus = async (req, res, next) => {
     }
 };
 exports.checkPaymentStatus = checkPaymentStatus;
+//# sourceMappingURL=stripeController.js.map

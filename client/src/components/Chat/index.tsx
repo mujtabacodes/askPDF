@@ -34,11 +34,11 @@ const Chat = (p: IChat) => {
 	const [input, setInput] = useState('')
 	const chatContainerRef = useRef<HTMLDivElement | null>(null)
 
-	// const socket = io(chatAPI)
-	const socket = io(chatAPI, {
-		transports: ['websocket'],
-		path: '/socket.io/',
-	})
+
+	const socket = io(chatAPI,{
+	transports: ['websocket'],
+	path: '/socket.io/'});
+
 	const userDetails = useAuthSlice(e => e.userData) as IUserDetails
 
 	useEffect(() => {

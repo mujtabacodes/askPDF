@@ -32,8 +32,10 @@ const io = new SocketIOServer(server, {
 		origin: FRONTEND_URL,
 		methods: ['GET', 'POST'], // Adjust with required methods
 	},
-})
-
+})/*
+io.of('/socket.io/').on('connection', (socket) => {
+console.log('user connected :' + socket.id)
+	socket.emit('server_response', { type: 'bot', message: 'Welcome to AskPDF!' })});*/
 app.use('/users', userRoute)
 app.use('/upload', uploadRoute)
 app.use('/get', getfilesRoute)

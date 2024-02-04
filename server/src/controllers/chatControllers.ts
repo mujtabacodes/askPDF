@@ -27,13 +27,11 @@ const processPDF = async (userId: string, fileNames: string[]) => {
 
 	// Generate a question for ChatGPT based on the PDF content
 	const chatGPTResponses = await Promise.all(
-		pdfTextArray.map(pdfText => /*ChatGPT(pdfText)*/ console.log(pdfText)),
+		pdfTextArray.map(pdfText => ChatGPT(pdfText)),
 	)
 	// const chatGPTResponse = await ChatGPT(pdfTextArray)
-	console.log(pdfTextArray)
-	// return
-	return 'send to code splitter'
-	//   return chatGPTResponses;
+	console.log(chatGPTResponses)
+	return chatGPTResponses
 }
 
 export const startChat = (io: SocketIOServer) => (socket: Socket) => {
@@ -63,8 +61,8 @@ export const startChat = (io: SocketIOServer) => (socket: Socket) => {
 		const res = await Standalone(data.message)
 
 		// Continue the conversation with ChatGPT based on user's message
-		// chatGPTResponses = await ChatGPT(data.message);
-		chatGPTResponses = ['ChatGPT response is cooking....'] // Adjust as needed
+		chatGPTResponses = await ChatGPT(data.message)
+		// chatGPTResponses = ['ChatGPT response is cooking....'] // Adjust as needed
 		socket.emit('server_response', { type: 'bot', message: res })
 	})
 }

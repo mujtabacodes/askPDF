@@ -6,7 +6,7 @@ import fs from 'fs'
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		const userId = req.headers['user_id']
+		const userId = req.headers['user-id']
 
 		const uploadPath = path.join(__dirname, '..', 'assets', 'uploads', `${userId}`)
 		// if (!fs.existsSync(uploadPath)) {

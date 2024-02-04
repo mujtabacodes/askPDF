@@ -1,5 +1,6 @@
-const baseURL = 'http://localhost:5000'
-// const baseURL = 'http://159.223.196.117'
+
+// const baseURL = 'http://localhost:5000'
+const baseURL = '/api'
 export const createUser = `${baseURL}/users`
 export const loginUser = `${baseURL}/users/auth`
 export const uploadSingleFile = `${baseURL}/upload/singlefile`

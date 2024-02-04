@@ -15,7 +15,7 @@ export const ChatGPT = async (prompt: any) => {
 	})
 	try {
 		const output = await splitter.createDocuments([prompt])
-		return 'File is splitted'
+		// return 'File is splitted'
 		const client = createClient(SUPABASE_URL, SUPABASE_API_KEY)
 		await SupabaseVectorStore.fromDocuments(
 			output,

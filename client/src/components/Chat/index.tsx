@@ -31,6 +31,8 @@ interface IUserDetails {
 const Chat = (p: IChat) => {
 	const { fileNames } = p
 	const [messages, setMessages] = useState<{ type: string; message: string }[]>([])
+	const [loading, setLoading] = useState(false)
+
 	const [input, setInput] = useState('')
 	const chatContainerRef = useRef<HTMLDivElement | null>(null)
 
@@ -66,28 +68,33 @@ const Chat = (p: IChat) => {
 
 	const handleSubmit = async (event: any) => {
 		event.preventDefault()
+		setLoading(true)
 		socket.emit('send_message', { type: 'user', message: input })
 		setInput('')
-		checkServerResponse()
-		scrollToBottom() // Scroll to bottom after sending a message
 	}
 
 	const checkServerResponse = () => {
 		socket.on('user_message', data => {
 			console.log('user_message')
 			console.log(data.message)
-			setMessages([...messages, { type: data.type, message: data.message }])
-		})
-		scrollToBottom()
-
-		socket.on('server_response', data => {
-			console.log('Server_response')
 			setMessages(prevMessages => [
 				...prevMessages,
 				{ type: data.type, message: data.message },
 			])
+			scrollToBottom()
+			setLoading(false)
 		})
-		scrollToBottom()
+
+		socket.on('server_response', data => {
+			console.log('Server_response')
+			console.log(data)
+			setMessages(prevMessages => [
+				...prevMessages,
+				{ type: data.type, message: data.message },
+			])
+			scrollToBottom()
+			setLoading(false)
+		})
 	}
 
 	const scrollToBottom = () => {
@@ -108,7 +115,11 @@ const Chat = (p: IChat) => {
 								<BotIcon>
 									<FaRobot style={{ color: 'black' }} />
 								</BotIcon>
-								<BotText>{message.message}</BotText>
+								{loading ? (
+									<div style={{ color }}>⭕</div>
+								) : (
+									<BotText>{message.message}</BotText>
+								)}
 							</BotContainer>
 						) : (
 							<UserContainer>

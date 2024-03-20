@@ -60,9 +60,6 @@ export const startChat = (io: SocketIOServer) => (socket: Socket) => {
 		socket.emit('user_message', { type: 'user', message: data.message })
 		const res = await Standalone(data.message)
 
-		// Continue the conversation with ChatGPT based on user's message
-		chatGPTResponses = await ChatGPT(data.message)
-		// chatGPTResponses = ['ChatGPT response is cooking....'] // Adjust as needed
 		socket.emit('server_response', { type: 'bot', message: res })
 	})
 }

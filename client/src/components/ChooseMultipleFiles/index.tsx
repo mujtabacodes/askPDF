@@ -60,7 +60,7 @@ const ChooseMultipleFiles = () => {
 			const response = await axios.post(uploadMultiplefiles, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
-					user_id: `${userDetails.user_id}`,
+					'user-id': userDetails.user_id,
 				},
 			})
 
